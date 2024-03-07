@@ -12,9 +12,7 @@ In this post, I’ll show how you can use matrix differential calculus to calcul
 
 ## Preliminaries
 
-![Simple feedforward NN architecture.](/assets/images/2024-02-01-matrix-differential-calculus-(for-deep-learning)/nn_arch.png)
-
-Simple feedforward NN architecture.
+{% include image.html file="/assets/images/2024-02-01-matrix-differential-calculus-(for-deep-learning)/nn_arch.png" description="Simple feedforward NN architecture." %}
 
 We will consider a very simple feedforward neural network architecture, with no biases, and $$N$$ layers with weights $$W_n \in \mathbb{R}^{d_n} \times \mathbb{R}^{d_{n-1}}$$. Each layer (but the last) will process the data as:
 
@@ -124,9 +122,7 @@ I do believe that this method improves clarity here, even if it is by less than 
 
 ## Useful matrix differential identities
 
-![Matrix differential identities from [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf).](/assets/images/2024-02-01-matrix-differential-calculus-(for-deep-learning)/matrix_calc.png)
-
-Matrix differential identities from [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf).
+{% include image.html file="/assets/images/2024-02-01-matrix-differential-calculus-(for-deep-learning)/matrix_calc.png" description="Matrix differential identities from" link="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf" linktext="The Matrix Cookbook" %}
 
 The identities above may be useful when computing more difficult derivatives.
 

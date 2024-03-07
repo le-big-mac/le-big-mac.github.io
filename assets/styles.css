@@ -137,3 +137,17 @@ footer p {
 details summary:hover {
     cursor: pointer;
 }
+
+figure {
+    display: inline-block;
+    margin: 20px; /* adjust as needed */
+}
+
+figure img {
+    vertical-align: top;
+}
+
+figure figcaption {
+    text-align: center;
+    color: grey;
+}
