@@ -1,0 +1,135 @@
+body {
+	font-size: 15px;
+	margin: auto;
+	width: 700px;
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-top: 30px;
+    font-family: Helvetica, serif;
+	background-color: white;
+	color: black;
+}
+
+/* Create two unequal columns that floats next to each other */
+.column {
+    float: left;
+    height: 270px; /* Should be removed. Only for demonstration */
+}
+
+.left {
+  width: 400px;
+}
+
+.right {
+  width: 300px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+hr {
+width: 700px;
+margin-left: auto;
+margin-right: auto;
+height: 1px;
+background-color:#666;
+opacity: 0.5;
+}
+
+/* unvisited link */
+a:link {
+    color: #606060;
+    text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: #606060;
+    text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+    color: #909090;
+    text-decoration: none;
+}
+
+/* selected link */
+a:active {
+    color: #909090;
+    text-decoration: none;
+}
+
+
+.menu {
+	padding-left: 5px;
+	padding-top: 20px;
+	padding-bottom: 50px;
+}
+
+.textblock {
+	padding-bottom: 40px;
+}
+
+.textblock3 {
+	padding-bottom: 20px;
+}
+
+.textblock2 {
+	padding-left: 10px;
+	padding-bottom: 20px;
+}
+
+li:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+ul.b {
+    list-style-type: square;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;  /* Scale images to fit within the container */
+    height: auto;
+}
+
+footer {
+            background-color: white;
+            padding: 10px;
+            text-align: center;
+            color: grey;
+}
+
+footer p {
+    margin: 0;
+}
+
+.blog-post {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.post-thumbnail {
+    width: 100px; /* Adjust width as desired */
+    height: 100px; /* Set a fixed height (adjust as needed) */
+    margin-right: 10px;
+    border-radius: 10px; /* Corner rounding */
+    object-fit: cover;   /* Preserves aspect ratio and crops */
+}
+
+.post-thumbnail:hover {
+    opacity: 0.8;  /* Example: slightly reduce opacity on hover */
+    cursor: pointer; /* Change cursor to a pointer hand */
+}
+
+.post-content {
+    flex: 1;
+}

@@ -1,0 +1,4 @@
+source:      ./ # This tells Jekyll where your main content is
+destination: ./_site # Where to output the built website
+baseurl:      # The subpath of your site, e.g. /blog
+markdown:    kramdown
