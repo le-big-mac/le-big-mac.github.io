@@ -133,3 +133,7 @@ footer p {
 .post-content {
     flex: 1;
 }
+
+details summary:hover {
+    cursor: pointer;
+}
