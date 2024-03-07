@@ -12,7 +12,7 @@ In this post, I’ll show how you can use matrix differential calculus to calcul
 
 ## Preliminaries
 
-![Simple feedforward NN architecture.]({{ site.baseurl }}/assets/images/2024-02-01-matrix-differential-calculus-(for-deep-learning)/nn_arch.png)
+![Simple feedforward NN architecture.](/assets/images/2024-02-01-matrix-differential-calculus-(for-deep-learning)/nn_arch.png)
 
 Simple feedforward NN architecture.
 
@@ -124,7 +124,7 @@ I do believe that this method improves clarity here, even if it is by less than 
 
 ## Useful matrix differential identities
 
-![Matrix differential identities from [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf).]({{ site.baseurl }}/assets/images/2024-02-01-matrix-differential-calculus-(for-deep-learning)/matrix_calc.png)
+![Matrix differential identities from [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf).](/assets/images/2024-02-01-matrix-differential-calculus-(for-deep-learning)/matrix_calc.png)
 
 Matrix differential identities from [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf).
 
