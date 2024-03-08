@@ -30,7 +30,8 @@ Claude 3 (specifically claude-3-opus-20240229) answered this correctly with no p
 
 Here's the full output for the curious:
 
-```
+<hr>
+
 Great! Let's solve this problem step by step. We need to find the finishing positions of each trainer's horses, given that all three trainers tied on points.
 
 Given:
@@ -65,6 +66,7 @@ In summary:
 - Kate's horses: 3rd, 4th, and 8th
 - Britney's horses: 2nd, 6th, and 7th
 - Harry's horses: 1st, 5th, and 9th
-```
+
+<hr>
 
 While the arithmetic is slightly spotty, the solution is correct, and it does seem to have reasoned through the problem.
