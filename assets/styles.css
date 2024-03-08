@@ -116,6 +116,7 @@ footer p {
 .blog-post {
     display: flex;
     margin-bottom: 20px;
+    align-items: center;
 }
 
 .post-thumbnail {
