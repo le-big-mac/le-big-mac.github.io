@@ -224,9 +224,14 @@ figure figcaption {
     padding: 8px 0;
   }
 
-  /* When the checkbox is checked, show the menu */
-  #menu-toggle:checked ~ .nav {
+/* Show the menu on hover */
+.hamburger-menu:hover .nav {
     display: block;
+  }
+
+  /* Opacity change on icon hover */
+  .menu-icon:hover {
+      opacity: 0.6; /* Adjust opacity value as needed */
   }
 
   /* In your styles.css file */
