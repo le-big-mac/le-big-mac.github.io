@@ -9,7 +9,7 @@ title: Charles London, University of Oxford
 {% include hamburger_menu.html %}
 <title>Charles London, University of Oxford</title>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
@@ -98,6 +98,29 @@ title: Charles London, University of Oxford
 <footer>
     <p>This website was adapted from <a href="https://utstat.toronto.edu/leonard/">Ting-Kam Leonard Wong</a>.</p>
 </footer>
+
+    <script>
+        // Check for touchscreen devices
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        // Target the hamburger menu, menu, and the document for event listeners
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const navMenu = document.querySelector('.nav');
+
+        // Event listener for the hamburger menu
+        hamburgerMenu.addEventListener(isTouchDevice ? 'click' : 'mouseover', () => {
+        navMenu.classList.toggle('show');
+        });
+
+        // Event listener to close the menu when clicking outside of it
+        document.addEventListener('click', (event) => {
+        // If the click didn't happen inside the menu or the hamburger icon, and
+        // the menu is visible, then remove the 'show' class.
+        if (!hamburgerMenu.contains(event.target) && !navMenu.contains(event.target) && navMenu.classList.contains('show')) {
+            navMenu.classList.remove('show');
+        }
+        });
+    </script>
 
 </body>
 

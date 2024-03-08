@@ -225,6 +225,11 @@ figure figcaption {
     padding: 8px 0;
   }
 
+  /* Show the menu on when the 'show' class is added */
+.nav.show {
+    display: block;
+}
+
 /* Show the menu on hover */
 .hamburger-menu:hover .nav {
     display: block;
