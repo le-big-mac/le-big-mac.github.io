@@ -35,10 +35,10 @@ Here's the full output for the curious:
 Great! Let's solve this problem step by step. We need to find the finishing positions of each trainer's horses, given that all three trainers tied on points.
 
 Given:
-- There are 9 horses in total, 3 from each trainer.
-- Points are awarded based on the finishing position: 9 points for 1st place, 8 points for 2nd place, and so on, down to 1 point for 9th place.
-- Two of Kate's horses had a photo finish, and her third horse finished further back.
-- Harry's horse, Bored Bronco, finished last.
+  - There are 9 horses in total, 3 from each trainer.
+  - Points are awarded based on the finishing position: 9 points for 1st place, 8 points for 2nd place, and so on, down to 1 point for 9th place.
+  - Two of Kate's horses had a photo finish, and her third horse finished further back.
+  - Harry's horse, Bored Bronco, finished last.
 
 Step 1: Determine the total points awarded in the race.
 Total points = 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2 + 1 = 45

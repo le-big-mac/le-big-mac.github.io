@@ -1,3 +1,5 @@
 source:      ./ # This tells Jekyll where your main content is
 destination: ./_site # Where to output the built website
 markdown:    kramdown
+kramdown:
+  hard_wrap: true
