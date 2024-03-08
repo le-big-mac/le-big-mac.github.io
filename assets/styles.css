@@ -244,3 +244,8 @@ figure figcaption {
 .post-title {
     padding-right: 50px; /* Adjust the value as needed */
   }
+
+  code, pre {
+    white-space: pre-wrap;       /* CSS for wrapping within code blocks */
+    word-break: break-word;      /* Break long words if necessary  */
+  }
