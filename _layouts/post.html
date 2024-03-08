@@ -12,13 +12,14 @@
         <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     {% endif %}
     <title>{{ page.title }}</title>
+    {% include hamburger_menu.html %}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ page.title }}">
     <meta name="twitter:image" content="{{ site.url }}{{ page.image }}">
     <meta name="twitter:image:src" content="{{ site.url }}{{ page.image }}">
 </head>
 <body>
-    <h1>{{ page.title }}</h1>
+    <div class="post-title"> <h1>{{ page.title }}</h1>
     <p>{{ page.date | date_to_string }}</p>
 
     {{ content }}
