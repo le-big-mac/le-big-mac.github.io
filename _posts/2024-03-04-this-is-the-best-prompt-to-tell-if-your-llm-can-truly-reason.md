@@ -19,6 +19,7 @@ What were the finishing positions of each trainers’ horses?
 
 I’ve tried this prompt on Bing Copilot, Perplexity (with GPT-4 and no internet search), and Gemini Advanced, and so far none have correctly reasoned through and answered the question. Even with significant further prompting, only GPT-4 was close to the correct solution. **Therefore, I have determined that this is the new Turing test, and the definitive check of whether an LLM can reason** (not really, but if you want to kill an hour, trying to adjust the prompt so that Gemini Advanced gets the correct answer is kind of fun).
 
+**Update (2024-03-08):** claude-3-opus-20240229 answered this correctly with no prompt engineering. It's so over.
 
 <details>
   <summary>Solution</summary>
