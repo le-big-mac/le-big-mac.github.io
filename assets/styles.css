@@ -245,6 +245,6 @@ figure figcaption {
     padding-right: 50px; /* Adjust the value as needed */
   }
 
-  body blockquote {
-     color: #676767;
-  }
+body blockquote {
+    color: #676767;
+}
