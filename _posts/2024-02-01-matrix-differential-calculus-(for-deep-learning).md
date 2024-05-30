@@ -1,7 +1,8 @@
 ---
 layout: post
-title:  "Matrix differential calculus (for deep learning)"
-date:   2024-02-01
+title: "Matrix differential calculus (for deep learning)"
+date: 2024-02-01
+author: "Charles London"
 usemathjax: true
 image: /assets/images/2024-02-01-matrix-differential-calculus-(for-deep-learning)/nn_arch.png
 ---

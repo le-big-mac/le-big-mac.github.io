@@ -1,7 +1,8 @@
 ---
 layout: post
-title:  "This is the BEST prompt to tell if your LLM can TRULY reason!"
-date:   2024-03-04
+title: "This is the BEST prompt to tell if your LLM can TRULY reason!"
+date: 2024-03-04
+author: "Charles London"
 image: /assets/images/2024-03-04-this-is-the-best-prompt-to-tell-if-your-llm-can-truly-reason/soy.jpeg
 ---
 

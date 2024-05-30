@@ -248,3 +248,9 @@ figure figcaption {
 body blockquote {
     color: #676767;
 }
+
+.centered-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
