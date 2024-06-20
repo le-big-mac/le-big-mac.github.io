@@ -67,3 +67,9 @@ Here's the full output for the curious:
 > - Harry's horses: 1st, 5th, and 9th
 
 While the arithmetic is slightly spotty, the solution is correct, and it does seem to have reasoned through the problem.
+
+**Update (2024-06-20):**
+
+Anthropic claims the new Claude 3.5 Sonnet (claude-3-5-sonnet-20240620) is its smartest model yet. However, it massively fucks this problem up, using the same temperature and token settings I used with 3 Opus. That's obviously not definitive but, under my personal guidelines, that means it's not smarter.
+
+More interestingly, I retried the prompt on claude-3-opus-20240229, and it now gets the solution wrong. I don't understand how this can be possible since the temperature is 0 and the prompt has not changed, unless they have since updated some part of their pipeline but not the snapshot date. However, this gives me enough confidence to once again announce this problem as the **new Turing test**! Without prompt engineering GPT-4 and 4o can't do it, none of the Geminis, none of the Rekas, no Nemotron, and now none of the Claudes (and if @teortaxestex reads this, the Deepseeks can't either). We're back in business baby!
