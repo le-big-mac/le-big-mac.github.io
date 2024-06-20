@@ -29,8 +29,10 @@ I’ve tried this prompt on Bing Copilot, Perplexity (with GPT-4 and no internet
 
 Claude 3 (specifically claude-3-opus-20240229) answered this correctly with no prompt engineering. It's so over.
 
-Here's the full output for the curious:
+<details>
+<summary>If you're curious, here's the full output</summary>
 
+<div markdown="1">
 > Great! Let's solve this problem step by step. We need to find the finishing positions of each trainer's horses, given that all three trainers tied on points.
 >
 > Given:
@@ -67,6 +69,8 @@ Here's the full output for the curious:
 > - Harry's horses: 1st, 5th, and 9th
 
 While the arithmetic is slightly spotty, the solution is correct, and it does seem to have reasoned through the problem.
+</div>
+</details>
 
 **Update (2024-06-20):**
 
