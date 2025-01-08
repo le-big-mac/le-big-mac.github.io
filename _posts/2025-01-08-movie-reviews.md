@@ -12,7 +12,7 @@ I promised I'd write every day, so here's a quick review of the movies I watched
 
 Charlie Hunnam is great in this, and I loved watching Hugh Grant be a slimy weasel. Pretty funny, but probably not going to live long in my memory. Highlight was the Bugzy Malone "fight porn" video and song.
 
-### Jason Bourne: 4/10
+### Jason Bourne: 3/10
 
 Dogshit. Jason Bourne was barely in it, and it committed every conceivable computer spying/hacking sin: "enhance", "they're through the firewall", "malware planted", etc. Alicia Vikander seems wasted and bored.
 
