@@ -41,29 +41,58 @@ title: Charles London, University of Oxford
 <hr>
 <div class="textblock" id="about">
 	<h3>About me</h3>
-	I am a DPhil student in computer science at the University of Oxford, supervised by <a href="https://www.cs.ox.ac.uk/people/varun.kanade/website/">Prof. Varun Kanade</a>. I work mainly in machine learning theory, particularly on generalization in deep neural networks. I am also interested in machine learning for mathematical reasoning.<BR><BR>
+	I am a DPhil student in computer science at the University of Oxford, supervised by <a href="https://www.cs.ox.ac.uk/people/varun.kanade/website/">Prof. Varun Kanade</a>. I work mainly in machine learning theory, particularly theory of LLMs, and continual or open-ended learning. I am also interested in machine learning for mathematical reasoning.<BR><BR>
 
-    Before starting my DPhil I spent two years at Quantinuum, working on quantum machine learning with <a href="https://www.cs.ox.ac.uk/people/bob.coecke/">Bob Coecke</a>, <a href="https://scholar.google.co.uk/citations?user=bBnvK8cAAAAJ&hl=en">Stephen Clark</a> and <a href="https://sites.google.com/site/dimkart/">Dimitri Kartsaklis</a>. I no longer work on quantum computing. Prior to this I completed my MSc degree in computer science at Oxford, graduating in early 2022, with my dissertation on generalization bounds supervised by <a href="https://www.cs.ox.ac.uk/people/yarin.gal/website/">Prof. Yarin Gal</a>. I completed my BA in computer science at the University of Cambridge, graduating in 2019. My undergraduate dissertation was supervised by <a href="https://www.cl.cam.ac.uk/~pl219/">Prof. Pietro Liò</a> and focused on semi-supervised machine learning methods for cancer classification.
+    Before starting my DPhil I spent two years at <a href="https://www.quantinuum.com/">Quantinuum</a>, working on quantum machine learning with <a href="https://www.cs.ox.ac.uk/people/bob.coecke/">Bob Coecke</a>, <a href="https://scholar.google.co.uk/citations?user=bBnvK8cAAAAJ&hl=en">Stephen Clark</a> and <a href="https://sites.google.com/site/dimkart/">Dimitri Kartsaklis</a>. Prior to this I completed my MSc degree in computer science at Oxford, graduating in early 2022, with my dissertation on generalization bounds supervised by <a href="https://www.cs.ox.ac.uk/people/yarin.gal/website/">Prof. Yarin Gal</a>. I completed my BA in computer science at the University of Cambridge, graduating in 2019. My undergraduate dissertation was supervised by <a href="https://www.cl.cam.ac.uk/~pl219/">Prof. Pietro Liò</a> and focused on semi-supervised machine learning methods for cancer classification.
+
 </div>
-
 
 <hr>
 
+<div class="textblock3" id="collabs">
+    <h3>Ideas and collaborations</h3>
+    I am always interested in discussing ideas and potential collaborations. I have more ideas than I have time, and a few of my current ideas are:
+    <ul class="b">
+        <li>Mine GitHub for Lean proof patches, to train an LLM to construct proofs as in <a href="https://arxiv.org/abs/2502.18449">SWE-RL.</a></li>
+        <li>A library for automated cross-layer transcoder construction (see <a href="https://transformer-circuits.pub/2025/attribution-graphs/methods.html">this from Anthropic</a>) in the same vein as <a href="https://github.com/EleutherAI/sparsify">Eleuther's sparsify.</a></li>
+        <li>Using cross-layer transcoders to analyse how different parts of the LLM training pipeline affect medium- and long-term planning (see <a href="https://github.com/EleutherAI/sparsify">here</a>).</li>
+        <li>Anything to do with LLM theory, especially from a complexity theory perspective. See for example, <a href="https://arxiv.org/abs/2402.12875">this paper</a> on CoT and complexity classes, <a href="https://arxiv.org/abs/2412.02975">this paper</a> on complexity-theoretic properties of multi-layer LLMs, or <a href="https://arxiv.org/abs/2503.14337">this paper</a> on optimal space complexity for LLMs.</li>
+        <li>Anything to do with continual learning or continual RL theory, or applications to LLM agents. I'm particularly interested in the case of long time-horizons, where we see many tasks, some repeated, compute has some cost, and we want to minimize regret. I am also particularly interested in infinite memory, limited compute continual learning.</li>
+    </ul>
+    If any of these ideas sound interesting to you, or if you have your own ideas that you would like to discuss, please get in touch at the email address above. I'm also just happy to chat!
+</div>
+
+<hr>
 
 <div class="textblock3" id="research">
 	<h3>Research</h3>
     <b>Research interests:</b><br>
-    Learning theory, continual learning, online learning, meta-learning, deep learning, generalization.<br>
+    Learning theory, LLM theory, continual learning, "agents", online learning, meta-learning, deep learning, generalization.<br>
     Google Scholar profile: <a href = "https://scholar.google.com/citations?user=ghU-4hUAAAAJ&hl=en"><i class="ai ai-google-scholar-square ai-2x"></i></a><br>
+</div>
+
+<div class="textblock3">
+    <b>Journal papers:</b><BR>
+    <p style="text-indent: 10px;">
+    <ul class="b">
+        <li>Peptide Binding Classification on Quantum Computers (2024)<br>
+            <i>Springer Quantum Machine Intelligence</i> <a href="https://link.springer.com/article/10.1007/s42484-024-00154-3">[QMI]</a>  <a href="https://arxiv.org/abs/2311.15696">[arXiv]</a>
+    </ul>
+    </p>
 </div>
 
 <div class="textblock3">
     <b>Preprints and submitted papers:</b><BR>
     <p style="text-indent: 10px;">
-    Quantum Machine Learning
     <ul class="b">
-        <li>Peptide Binding Classification on Quantum Computers (2024)<BR>
-            <i>Springer Quantum Machine Intelligence</i> <a href="https://link.springer.com/article/10.1007/s42484-024-00154-3">[QMI]</a>  <a href="https://arxiv.org/abs/2311.15696">[arXiv]</a>
+        <li>On the expressivity of Transformers with pause tokens (2025).<br>
+            <i>Under submission, PDF on request.</i>
+        <li>Solve Layerwise Linear Models First to Understand Neural Dynamical Phenomena (2025).<br>
+            <i><a href="https://arxiv.org/abs/2502.21009">[arXiv]</a></i>
+        <li>REAL: Benchmarking Autonomous Agents on Deterministic Simulations of Real Websites (2025).<br>
+            <i><a href="https://arxiv.org/abs/2504.11543">[arXiv]</a></i>
+        <li>Exploiting the equivalence between quantum neural networks and perceptrons (2024).<br>
+            <i><a href="https://arxiv.org/abs/2407.04371">[arXiv]</a></i>
     </ul>
     </p>
 </div>
@@ -73,15 +102,10 @@ title: Charles London, University of Oxford
     <p style="text-indent: 10px;">
         Learning Theory
         <ul class="b">
-            <li>Bounds on learning with power-law priors (2024)<BR>
+            <li>Bounds on learning with power-law priors (2024).<br>
                 <i>March Meeting of the American Physical Society</i> <a href="https://meetings.aps.org/Meeting/MAR24/Session/T28.6">[APS]</a>
-        </ul>
-    </p>
-    <p style="text-indent: 10px;">
-        Quantum Machine Learning
-        <ul class="b">
-            <li>Quantum NLP with lambeq (2022)<BR>
-                <i>Applied Category Theory</i> <a href="https://msp.cis.strath.ac.uk/act2022/papers/ACT2022_paper_7003.pdf">[ACT]</a>
+        <li>Quantum NLP with lambeq (2022).<br>
+            <i>Applied Category Theory</i> <a href="https://msp.cis.strath.ac.uk/act2022/papers/ACT2022_paper_7003.pdf">[ACT]</a>
         </ul>
     </p>
 </div>
@@ -91,12 +115,36 @@ title: Charles London, University of Oxford
 <div class="textblock3" id="teaching">
 <h3>Teaching</h3>
     <p style="text-indent: 10px;">
-    Departmental Tutor - <a href = "https://www.cs.ox.ac.uk/people/varun.kanade/teaching/CLT-MT2023/index.html">Computational Learning Theory</a> (Michaelmas 2023)
+    Departmental Tutor - <a href = "https://www.cs.ox.ac.uk/people/varun.kanade/teaching/CLT-MT2023/index.html">Computational Learning Theory</a> (Michaelmas 2023, 2024)
+    </p>
+</div>
+
+<hr>
+
+<div class="textblock3" id="other">
+	<h3>Miscellaneous</h3>
+
+    <p>
+	<b>Other interests:</b><br>
+    Economics of AI, theoretical CS, statistical physics, optimization, game theory, Arsenal football club, American football, spy novels, sci-fi. I hate running, but I do it anyway.
+    </p>
+
+    <p><b>Favourite fiction books (no particular order):</b>
+        Gorky Park, Blood Meridian, Brave New World, Leave it to Psmith, Do Androids Dream of Electric Sheep?, Moving Pictures, Berlin Game, All the Pretty Horses, Necropolis, Foundation
+    </p>
+
+    <p>
+    <b>Favourite films (no particular order):</b><br>
+    In Bruges, No Country for Old Men, The Handmaiden, Shrek 2, Blade Runner, The Nice Guys
+    </p>
+
+    <p><b>Favourite video games (no particular order):</b><br>
+    Dragon Age: Origins, Super Mario Galaxy, Fallout: New Vegas, Hollow Knight, Baldur's Gate 3, Assassin's Creed: Black Flag, Metal Gear Solid V, Outer Wilds
     </p>
 </div>
 
 <footer>
-    <p>This website was adapted from <a href="https://utstat.toronto.edu/leonard/">Ting-Kam Leonard Wong</a>.</p>
+    <p>This website was adapted from <a href="https://utstat.toronto.edu/leonard/">Ting-Kam Leonard Wong</a>. Last updated 27/04/2025.</p>
 </footer>
 
     <script>
