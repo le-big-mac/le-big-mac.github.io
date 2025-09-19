@@ -14,6 +14,32 @@ body {
     width: 700px;
 }
 
+/* Mobile responsive adjustments */
+@media screen and (max-width: 768px) {
+    body {
+        padding-left: 20px;
+        padding-right: 20px;
+        width: calc(100% - 40px);
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    .right {
+        width: 100%;
+    }
+
+    .column {
+        float: none;
+        height: auto;
+    }
+
+    hr {
+        width: 100%;
+    }
+}
+
 /* ==========================================
    LAYOUT
    ========================================== */
