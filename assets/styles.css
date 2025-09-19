@@ -1,45 +1,66 @@
+/* ==========================================
+   RESET & BASE STYLES
+   ========================================== */
+
 body {
-	font-size: 15px;
-	margin: auto;
-	width: 700px;
-	padding-left: 50px;
-	padding-right: 50px;
-	padding-top: 30px;
+    background-color: white;
+    color: black;
     font-family: Helvetica, serif;
-	background-color: white;
-	color: black;
+    font-size: 15px;
+    margin: auto;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 30px;
+    width: 700px;
 }
 
-/* Create two unequal columns that floats next to each other */
+/* ==========================================
+   LAYOUT
+   ========================================== */
+
+/* Two column layout */
+.row {
+    /* Clear floats after the columns */
+}
+
+.row:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
 .column {
     float: left;
-    height: 270px; /* Should be removed. Only for demonstration */
 }
 
 .left {
-  width: 400px;
+    width: 400px;
 }
 
 .right {
-  width: 300px;
+    width: 300px;
 }
 
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
+/* ==========================================
+   TYPOGRAPHY
+   ========================================== */
 
 hr {
-width: 700px;
-margin-left: auto;
-margin-right: auto;
-height: 1px;
-background-color:#666;
-opacity: 0.5;
+    background-color: #666;
+    height: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.5;
+    width: 700px;
 }
+
+blockquote {
+    color: #676767;
+}
+
+/* ==========================================
+   LINKS
+   ========================================== */
 
 /* unvisited link */
 a:link {
@@ -65,26 +86,55 @@ a:active {
     text-decoration: none;
 }
 
+/* ==========================================
+   COMPONENTS
+   ========================================== */
 
-.menu {
-	padding-left: 5px;
-	padding-top: 20px;
-	padding-bottom: 50px;
-}
-
+/* Text blocks */
 .textblock {
-	padding-bottom: 40px;
+    padding-bottom: 40px;
 }
 
 .textblock3 {
-	padding-bottom: 20px;
+    padding-bottom: 20px;
 }
 
-.textblock2 {
-	padding-left: 10px;
-	padding-bottom: 20px;
+.menu {
+    clear: both;
+    padding-bottom: 50px;
+    padding-left: 5px;
+    padding-top: 20px;
 }
 
+/* Blog posts */
+.blog-post {
+    align-items: center;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.post-content {
+    flex: 1;
+}
+
+.post-title {
+    padding-right: 50px;
+}
+
+.post-thumbnail {
+    border-radius: 10px;
+    height: 100px;
+    margin-right: 10px;
+    object-fit: cover;
+    width: 100px;
+}
+
+.post-thumbnail:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+/* Lists */
 li:not(:last-child) {
     margin-bottom: 5px;
 }
@@ -93,56 +143,24 @@ ul.b {
     list-style-type: square;
 }
 
+/* Images */
 img {
     display: block;
+    height: auto;
     margin-left: auto;
     margin-right: auto;
-    max-width: 100%;  /* Scale images to fit within the container */
-    height: auto;
     margin-top: 30px;
+    max-width: 100%;
 }
 
-footer {
-            background-color: white;
-            padding: 10px;
-            text-align: center;
-            color: grey;
-}
-
-footer p {
-    margin: 0;
-}
-
-.blog-post {
-    display: flex;
-    margin-bottom: 20px;
-    align-items: center;
-}
-
-.post-thumbnail {
-    width: 100px; /* Adjust width as desired */
-    height: 100px; /* Set a fixed height (adjust as needed) */
-    margin-right: 10px;
-    border-radius: 10px; /* Corner rounding */
-    object-fit: cover;   /* Preserves aspect ratio and crops */
-}
-
-.post-thumbnail:hover {
-    opacity: 0.8;  /* Example: slightly reduce opacity on hover */
-    cursor: pointer; /* Change cursor to a pointer hand */
-}
-
-.post-content {
-    flex: 1;
-}
-
-details summary:hover {
-    cursor: pointer;
+.profile-photo {
+    margin-left: auto;
+    margin-right: 0;
 }
 
 figure {
     display: inline-block;
-    margin: 20px; /* adjust as needed */
+    margin: 20px;
 }
 
 figure img {
@@ -150,107 +168,115 @@ figure img {
 }
 
 figure figcaption {
-    text-align: center;
     color: grey;
+    text-align: center;
 }
 
-/* Basic container */
+/* Details/Summary */
+details summary:hover {
+    cursor: pointer;
+}
+
+/* ==========================================
+   NAVIGATION
+   ========================================== */
+
+/* Hamburger menu */
 .hamburger-menu {
-    position: relative; /* Or relative, if you want it within another container */
-    /* top: 15px; */
-    right: 15px;
-    z-index: 100; /* Ensure it's on top of other elements */
+    position: relative;
+    right: 0;
+    z-index: 100;
 }
 
-/* Hide the checkbox */
-.hamburger-menu input[type="checkbox"] {
-  display: none;
-}
-
-/* Style the hamburger icon */
 .menu-icon {
-  display: block;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  position: absolute; /* Added position: absolute */
-  top: 20px; /* Adjust as needed */
-  right: 15px; /* Adjust as needed */
+    cursor: pointer;
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 30px;
+}
+
+.menu-icon:hover {
+    opacity: 0.6;
 }
 
 .line {
-  display: block;
-  width: 100%;
-  height: 3px;
-  background-color: #333; /* Customize color as needed */
-  margin: 5px 0;
+    background-color: #333;
+    display: block;
+    height: 3px;
+    margin: 5px 0;
+    width: 100%;
 }
 
-/* Style the menu */
 .nav {
-  display: none; /* Initially hidden */
-  position: absolute;
-  background-color: #fff; /* Customize color as needed */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  padding: 5px;  /* Reduced padding */
-  border-radius: 5px;
-  right: 0;
-  top: 45px; /* Below the hamburger icon */
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    padding: 5px;
+    position: absolute;
+    right: 0;
+    top: 45px;
 }
 
-.nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.nav a {
-  display: block;
-  text-decoration: none;
-  color: #333; /* Customize color as needed */
-  font-size: 16px;  /* Increased font size */
-  padding: 5px 10px;  /* Reduced padding */
-  opacity: 1;
-}
-
-/* Hover effect */
-.nav a:hover {
-  opacity: 0.6; /* Slight opacity reduction on hover */
-}
-
-.nav li a {
-  display: block;
-  text-decoration: none;
-  color: #333; /* Customize color as needed */
-  padding: 8px 0;
-}
-
-  /* Show the menu on when the 'show' class is added */
 .nav.show {
     display: block;
 }
 
-/* Show the menu on hover */
+.nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav a {
+    color: #333;
+    display: block;
+    font-size: 16px;
+    opacity: 1;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    opacity: 0.6;
+}
+
+.nav li a {
+    color: #333;
+    display: block;
+    padding: 8px 0;
+    text-decoration: none;
+}
+
+/* Show menu on hover */
 .hamburger-menu:hover .nav {
     display: block;
 }
 
-/* Opacity change on icon hover */
-.menu-icon:hover {
-    opacity: 0.6; /* Adjust opacity value as needed */
-}
-
-  /* In your styles.css file */
-.post-title {
-    padding-right: 50px; /* Adjust the value as needed */
-  }
-
-body blockquote {
-    color: #676767;
-}
+/* ==========================================
+   UTILITIES
+   ========================================== */
 
 .centered-flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+footer {
+    background-color: white;
+    color: grey;
+    padding: 10px;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
 }

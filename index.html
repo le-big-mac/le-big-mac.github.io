@@ -9,7 +9,7 @@ title: Charles London, University of Oxford
 {% include hamburger_menu.html %}
 <title>Charles London, University of Oxford</title>
 <meta charset="UTF-8">
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
@@ -23,18 +23,18 @@ title: Charles London, University of Oxford
   <div class="column left">
     <h1>Charles London</h1>
     <h3>DPhil Student</h3>
-    <p><a href = "https://www.cs.ox.ac.uk/">Department of Computer Science</a><br>University of Oxford<br>Wolfson Building, Parks Road, Oxford, OX1 3QD</b></p>
+    <p><a href = "https://www.cs.ox.ac.uk/">Department of Computer Science</a><br>University of Oxford<br>Wolfson Building, Parks Road, Oxford, OX1 3QD</p>
     <p>E-mail: <i>charles.london"at"cs.ox.ac.uk</i></p>
     <p><a href = "/assets/files/London_CV.pdf", target="_blank">CV</a> &nbsp <a href="blog.html">Blog and notes</a></p>
   </div>
   <div class="column right">
   	<br><br>
-  	<img src="assets/images/web_photo_1.jpeg" style="width: 200px">
+  	<img src="assets/images/web_photo_1.jpeg" class="profile-photo" style="width: 200px">
   </div>
 </div>
 
 <div class="menu">
-  Jump to: &nbsp <a href = "#research">Research</a> &nbsp <a href = "#teaching">Teaching</a>
+  Jump to: &nbsp <a href = "#about">About me</a> &nbsp <a href = "#collabs">Ideas and collaborations</a> &nbsp <a href = "#research">Research</a> &nbsp <a href = "#teaching">Teaching</a> &nbsp <a href = "#other">Miscellaneous</a>
 </div>
 
 
@@ -143,11 +143,11 @@ title: Charles London, University of Oxford
 
     <p>
 	<b>Other interests:</b><br>
-    Economics of AI, theoretical CS, statistical physics, optimization, game theory, Arsenal football club, American football, spy novels, sci-fi. I hate running, but I do it anyway.
+    Economics of AI, theoretical CS, statistical physics, optimization, game theory, Arsenal football club, American football, spy novels, sci-fi.
     </p>
 
     <p><b>Favourite fiction books (no particular order):</b>
-        Gorky Park, Blood Meridian, Brave New World, Leave it to Psmith, Do Androids Dream of Electric Sheep?, Moving Pictures, Berlin Game, All the Pretty Horses, Necropolis, Foundation, Catch-22
+        Gorky Park, Blood Meridian, Brave New World, Leave it to Psmith, Do Androids Dream of Electric Sheep?, Moving Pictures, Berlin Game, All the Pretty Horses, Necropolis, Foundation, Catch-22, Neuromancer
     </p>
 
     <p>
@@ -164,28 +164,7 @@ title: Charles London, University of Oxford
     <p>This website was adapted from <a href="https://utstat.toronto.edu/leonard/">Ting-Kam Leonard Wong</a>. Last updated 28/05/2025.</p>
 </footer>
 
-    <script>
-        // Check for touchscreen devices
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-        // Target the hamburger menu, menu, and the document for event listeners
-        const hamburgerMenu = document.querySelector('.hamburger-menu');
-        const navMenu = document.querySelector('.nav');
-
-        // Event listener for the hamburger menu
-        hamburgerMenu.addEventListener(isTouchDevice ? 'click' : 'mouseover', () => {
-        navMenu.classList.toggle('show');
-        });
-
-        // Event listener to close the menu when clicking outside of it
-        document.addEventListener('click', (event) => {
-        // If the click didn't happen inside the menu or the hamburger icon, and
-        // the menu is visible, then remove the 'show' class.
-        if (!hamburgerMenu.contains(event.target) && !navMenu.contains(event.target) && navMenu.classList.contains('show')) {
-            navMenu.classList.remove('show');
-        }
-        });
-    </script>
+    <script src="/assets/hamburger-menu.js"></script>
 
 </body>
 
