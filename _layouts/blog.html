@@ -3,9 +3,9 @@
   <head>
     <title>My Blog</title>
     <link rel="stylesheet" href="/assets/styles.css">
-    {% include hamburger_menu.html %}
   </head>
   <body>
+    <p><a href="/">Home</a></p>
     <h1>Charlie's Notes</h1>
     <p>Notes on machine learning theory, maths, and anything else I can be bothered to write about.</p>
     {% for post in site.posts %}
@@ -24,6 +24,4 @@
     {% endfor %}
     {{ content }}
   </body>
-
-  <script src="/assets/hamburger-menu.js"></script>
 </html>
