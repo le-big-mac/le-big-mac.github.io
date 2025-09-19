@@ -38,6 +38,16 @@ body {
     hr {
         width: 100%;
     }
+
+    /* Make hamburger menu items larger on mobile */
+    .nav a {
+        font-size: 18px;
+        padding: 12px 15px;
+    }
+
+    .nav li a {
+        padding: 12px 0;
+    }
 }
 
 /* ==========================================
