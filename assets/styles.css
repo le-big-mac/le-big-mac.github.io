@@ -126,18 +126,24 @@ a:active {
    COMPONENTS
    ========================================== */
 
-/* Text blocks */
-.textblock {
-    padding-bottom: 40px;
+/* Sections */
+.section {
+    padding-bottom: 16px;
 }
 
-.textblock3 {
-    padding-bottom: 20px;
+/* Ensure consistent spacing inside sections */
+.section > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Compact variant for tighter sections (e.g., research subsections) */
+.section.compact {
+    padding-bottom: 10px;
 }
 
 .menu {
     clear: both;
-    padding-bottom: 50px;
+    padding-bottom: 16px;
     padding-left: 5px;
     padding-top: 20px;
 }
