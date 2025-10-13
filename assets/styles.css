@@ -5,7 +5,7 @@
 body {
     background-color: white;
     color: black;
-    font-family: Helvetica, serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 15px;
     margin: auto;
     padding-left: 50px;
@@ -19,24 +19,95 @@ body {
     body {
         padding-left: 20px;
         padding-right: 20px;
-        width: calc(100% - 40px);
+        width: auto;
+        max-width: 100%;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
     }
 
-    .left {
-        width: 100%;
-    }
-
-    .right {
-        width: 100%;
+    /* Single column layout on mobile */
+    .row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
     }
 
     .column {
-        float: none;
+        float: none !important;
+        width: 100% !important;
         height: auto;
+    }
+
+    /* Use display: contents to "unwrap" the left column so we can reorder its children */
+    .left {
+        display: contents;
+    }
+
+    /* Order the children of .left */
+    .left > h1 {
+        order: 1;
+        width: 100%;
+    }
+
+    .left > h3 {
+        order: 2;
+        width: 100%;
+    }
+
+    .left > p:nth-of-type(1) {
+        order: 3; /* Department/Address */
+        width: 100%;
+    }
+
+    .left > p:nth-of-type(2) {
+        order: 4; /* Email */
+        width: 100%;
+    }
+
+    /* Image comes after email */
+    .right {
+        order: 5;
+        width: 100% !important;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* CV/Blog links come after image */
+    .left > p:nth-of-type(3) {
+        order: 6;
+        width: 100%;
     }
 
     hr {
         width: 100%;
+        max-width: 100%;
+    }
+
+    /* Remove spacing above profile photo container */
+    .right br {
+        display: none; /* Hide the <br><br> elements on mobile */
+    }
+
+    /* Fix text wrapping for long text */
+    h1, h3, p, a {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        max-width: 100%;
+        white-space: normal; /* Ensure text can wrap */
+    }
+
+    /* Ensure links within text also wrap */
+    h1, h3 {
+        hyphens: auto;
+    }
+
+    /* Override any inline styles on mobile and center the image */
+    .profile-photo {
+        margin: 0 auto !important; /* Force center the image */
+        display: block !important;
+        width: 200px !important; /* Override inline style but keep reasonable size */
+        max-width: calc(100vw - 40px); /* Ensure it fits on very small screens */
     }
 
     /* Make hamburger menu items larger on mobile */
@@ -48,6 +119,25 @@ body {
     .nav li a {
         padding: 12px 0;
     }
+
+    /* Ensure menu text also wraps */
+    .menu {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Hide blog post thumbnails on mobile */
+    .post-thumbnail {
+        display: none;
+    }
+
+    .post-content {
+        width: 100%;
+    }
+
+    .post-title {
+        padding-right: 0;
+    }
 }
 
 /* ==========================================
@@ -57,6 +147,7 @@ body {
 /* Two column layout */
 .row {
     /* Clear floats after the columns */
+    overflow: hidden;
 }
 
 .row:after {
@@ -198,6 +289,7 @@ img {
 .profile-photo {
     margin-left: auto;
     margin-right: 0;
+    margin-top: 0; /* Override the general img margin-top for profile photo */
 }
 
 figure {
