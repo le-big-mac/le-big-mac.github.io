@@ -16,6 +16,23 @@
     {% endif %}
     <title>{{ page.title }}</title>
     <style>
+      .research-meta {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 24px;
+      }
+      .research-meta a { color: #555; }
+      .pdf-link {
+        display: inline-block;
+        margin: 24px 0;
+        padding: 10px 20px;
+        background: #333;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 15px;
+      }
+      .pdf-link:hover { background: #555; color: white; }
       .action-panel {
         margin-top: 40px;
         padding: 20px;
@@ -60,18 +77,23 @@
 </head>
 <body>
     <p><a href="/">Home</a> &nbsp; <a href="/research-lab.html">Research Lab</a></p>
-    <div class="post-title">
-        <h1>{{ page.title }}</h1>
-        <p>{{ page.author }}, {{ page.date | date_to_string }}</p>
-        {% if page.issue_number %}
-        <p class="date"><a href="https://github.com/le-big-mac/le-big-mac.github.io/issues/{{ page.issue_number }}" target="_blank">Discussion (Issue #{{ page.issue_number }})</a></p>
-        {% endif %}
+
+    <h1 style="margin-bottom: 8px;">{{ page.title }}</h1>
+
+    <div class="research-meta">
+        <p>
+            {{ page.author }} &middot; {{ page.date | date_to_string }}
+            {% if page.status %} &middot; {{ page.status }}{% endif %}
+            {% if page.issue_number %}
+                &middot; <a href="https://github.com/le-big-mac/le-big-mac.github.io/issues/{{ page.issue_number }}" target="_blank">Issue #{{ page.issue_number }}</a>
+            {% endif %}
+        </p>
     </div>
 
     {{ content }}
 
     {% if page.pdf %}
-    <p style="margin-top: 20px; font-size: 16px;"><a href="{{ page.pdf }}">Read the full paper (PDF)</a></p>
+    <a class="pdf-link" href="{{ page.pdf }}">Read the full paper (PDF)</a>
     {% endif %}
 
     {% if page.issue_number %}
@@ -150,7 +172,6 @@
         }
       }
 
-      // Submit on Ctrl/Cmd+Enter
       document.getElementById('command-input').addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
           e.preventDefault();

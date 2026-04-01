@@ -141,22 +141,13 @@
 
     <hr>
 
-      <article class="blog-post">
-        <div class="post-content">
-          <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-          <p class="date">{{ post.date | date_to_string }}
-            {% if post.status == "complete" %} — <span style="color: #2e7d32;">complete</span>
-            {% else %} — <span style="color: #666;">{{ post.status }}</span>
-            {% endif %}
-          </p>
-          {{ post.content | strip_html | truncatewords: 40 }}
-          {% if post.pdf %}
-          <br><a href="{{ post.pdf }}">PDF</a>
+      <article>
+        <h3 style="margin-bottom: 4px;"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <p class="date">{{ post.date | date_to_string }}
+          {% if post.status == "complete" %} — <span style="color: #2e7d32;">complete</span>
+          {% else %} — <span style="color: #666;">{{ post.status }}</span>
           {% endif %}
-          {% if post.issue_number %}
-           &nbsp; <a href="https://github.com/le-big-mac/le-big-mac.github.io/issues/{{ post.issue_number }}">Discussion</a>
-          {% endif %}
-        </div>
+        </p>
       </article>
     {% endfor %}
     {% endif %}
