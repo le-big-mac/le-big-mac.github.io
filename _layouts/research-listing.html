@@ -19,6 +19,16 @@
         resize: vertical;
         box-sizing: border-box;
       }
+      .idea-form input[type="text"] {
+        width: 100%;
+        padding: 8px 10px;
+        font-family: inherit;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 8px;
+      }
       .idea-form button {
         margin-top: 8px;
         padding: 8px 20px;
@@ -44,34 +54,40 @@
   <body>
     <p><a href="/">Home</a></p>
     <h1>Research Lab</h1>
-    <p>Half-baked research ideas, investigated by an autonomous agent consortium. These are rough explorations, not polished papers.</p>
+    <p>Half-baked research ideas, investigated by an autonomous agent consortium. Submit an idea and it will be assessed automatically.</p>
 
     <h2>Submit an idea</h2>
     <form class="idea-form" id="idea-form" onsubmit="return submitIdea(event)">
-      <textarea id="idea-text" placeholder="Describe your half-baked research idea..." required></textarea>
+      <input type="text" id="idea-title" placeholder="Short title for your idea" required>
+      <textarea id="idea-text" placeholder="Describe your half-baked research idea in more detail..." required></textarea>
       <br>
       <button type="submit" id="submit-btn">Submit for investigation</button>
       <div id="submit-status"></div>
     </form>
 
     <script>
-      // Set this to your webhook server URL (e.g. ngrok, Cloudflare tunnel, or direct)
-      const WEBHOOK_URL = localStorage.getItem('webhook_url') || '';
+      const REPO = 'le-big-mac/le-big-mac.github.io';
+
+      function getToken() {
+        let token = localStorage.getItem('gh_token');
+        if (!token) {
+          token = prompt('Enter a GitHub personal access token with Issues permission on ' + REPO + '.\nThis is saved in your browser for next time.');
+          if (token) localStorage.setItem('gh_token', token);
+        }
+        return token;
+      }
 
       async function submitIdea(e) {
         e.preventDefault();
-        const idea = document.getElementById('idea-text').value.trim();
+        const title = document.getElementById('idea-title').value.trim();
+        const body = document.getElementById('idea-text').value.trim();
         const btn = document.getElementById('submit-btn');
         const status = document.getElementById('submit-status');
 
-        if (!idea) return false;
+        if (!title || !body) return false;
 
-        let url = WEBHOOK_URL;
-        if (!url) {
-          url = prompt('Enter your webhook server URL (e.g. https://abc123.ngrok.io).\nThis will be saved for next time.');
-          if (!url) return false;
-          localStorage.setItem('webhook_url', url);
-        }
+        const token = getToken();
+        if (!token) return false;
 
         btn.disabled = true;
         btn.textContent = 'Submitting...';
@@ -79,28 +95,37 @@
         status.style.display = 'none';
 
         try {
-          const resp = await fetch(url.replace(/\/+$/, '') + '/idea', {
+          const resp = await fetch(`https://api.github.com/repos/${REPO}/issues`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({idea: idea, sender: 'webform'}),
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': 'application/vnd.github+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              title: title,
+              body: body,
+              labels: ['idea'],
+            }),
           });
 
+          if (resp.status === 401) {
+            localStorage.removeItem('gh_token');
+            throw new Error('Invalid token. Please try again.');
+          }
           if (!resp.ok) {
             const err = await resp.json().catch(() => ({}));
-            throw new Error(err.error || `Server returned ${resp.status}`);
+            throw new Error(err.message || `GitHub API returned ${resp.status}`);
           }
 
           const data = await resp.json();
-          status.textContent = `Queued! ID: ${data.id.slice(0, 8)}. You'll find the results here when it's done.`;
+          status.innerHTML = `Idea submitted as <a href="${data.html_url}" target="_blank">Issue #${data.number}</a>. The agents will start investigating shortly.`;
           status.className = 'success';
+          document.getElementById('idea-title').value = '';
           document.getElementById('idea-text').value = '';
         } catch (err) {
-          status.textContent = `Failed: ${err.message}. Check that the server is running.`;
+          status.textContent = `Failed: ${err.message}`;
           status.className = 'error';
-          // Clear saved URL if it seems wrong
-          if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
-            localStorage.removeItem('webhook_url');
-          }
         } finally {
           btn.disabled = false;
           btn.textContent = 'Submit for investigation';
