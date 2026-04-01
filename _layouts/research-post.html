@@ -70,6 +70,10 @@
 
     {{ content }}
 
+    {% if page.pdf %}
+    <p style="margin-top: 20px; font-size: 16px;"><a href="{{ page.pdf }}">Read the full paper (PDF)</a></p>
+    {% endif %}
+
     {% if page.issue_number %}
     <div class="action-panel">
         <h3>Continue this investigation</h3>
