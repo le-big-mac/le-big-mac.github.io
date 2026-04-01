@@ -7,13 +7,111 @@
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/assets/styles.css">
+    <style>
+      .idea-form textarea {
+        width: 100%;
+        min-height: 120px;
+        padding: 10px;
+        font-family: inherit;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+        box-sizing: border-box;
+      }
+      .idea-form button {
+        margin-top: 8px;
+        padding: 8px 20px;
+        font-size: 14px;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .idea-form button:hover { background: #555; }
+      .idea-form button:disabled { background: #999; cursor: wait; }
+      #submit-status {
+        margin-top: 8px;
+        padding: 8px;
+        border-radius: 4px;
+        display: none;
+      }
+      #submit-status.success { display: block; background: #e8f5e9; color: #2e7d32; }
+      #submit-status.error { display: block; background: #fbe9e7; color: #c62828; }
+    </style>
   </head>
   <body>
     <p><a href="/">Home</a></p>
     <h1>Research Lab</h1>
     <p>Half-baked research ideas, investigated by an autonomous agent consortium. These are rough explorations, not polished papers.</p>
 
+    <h2>Submit an idea</h2>
+    <form class="idea-form" id="idea-form" onsubmit="return submitIdea(event)">
+      <textarea id="idea-text" placeholder="Describe your half-baked research idea..." required></textarea>
+      <br>
+      <button type="submit" id="submit-btn">Submit for investigation</button>
+      <div id="submit-status"></div>
+    </form>
+
+    <script>
+      // Set this to your webhook server URL (e.g. ngrok, Cloudflare tunnel, or direct)
+      const WEBHOOK_URL = localStorage.getItem('webhook_url') || '';
+
+      async function submitIdea(e) {
+        e.preventDefault();
+        const idea = document.getElementById('idea-text').value.trim();
+        const btn = document.getElementById('submit-btn');
+        const status = document.getElementById('submit-status');
+
+        if (!idea) return false;
+
+        let url = WEBHOOK_URL;
+        if (!url) {
+          url = prompt('Enter your webhook server URL (e.g. https://abc123.ngrok.io).\nThis will be saved for next time.');
+          if (!url) return false;
+          localStorage.setItem('webhook_url', url);
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Submitting...';
+        status.className = '';
+        status.style.display = 'none';
+
+        try {
+          const resp = await fetch(url.replace(/\/+$/, '') + '/idea', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({idea: idea, sender: 'webform'}),
+          });
+
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.error || `Server returned ${resp.status}`);
+          }
+
+          const data = await resp.json();
+          status.textContent = `Queued! ID: ${data.id.slice(0, 8)}. You'll find the results here when it's done.`;
+          status.className = 'success';
+          document.getElementById('idea-text').value = '';
+        } catch (err) {
+          status.textContent = `Failed: ${err.message}. Check that the server is running.`;
+          status.className = 'error';
+          // Clear saved URL if it seems wrong
+          if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+            localStorage.removeItem('webhook_url');
+          }
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Submit for investigation';
+        }
+        return false;
+      }
+    </script>
+
     {% assign sorted = site.research | sort: "date" | reverse %}
+    {% if sorted.size > 0 %}
+    <h2>Previous investigations</h2>
     {% for post in sorted %}
 
     <hr>
@@ -28,9 +126,6 @@
         </div>
       </article>
     {% endfor %}
-
-    {% if site.research.size == 0 %}
-    <p><em>No research notes yet. Send an idea via WhatsApp to get started.</em></p>
     {% endif %}
 
     {{ content }}
