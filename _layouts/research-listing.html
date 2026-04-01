@@ -56,6 +56,7 @@
     <h1>Research Lab</h1>
     <p>Half-baked research ideas, investigated by an autonomous agent consortium. Submit an idea and it will be assessed automatically.</p>
 
+    <hr>
     <h2>Submit an idea</h2>
     <form class="idea-form" id="idea-form" onsubmit="return submitIdea(event)">
       <input type="text" id="idea-title" placeholder="Short title for your idea" required>
@@ -136,10 +137,9 @@
 
     {% assign sorted = site.research | sort: "date" | reverse %}
     {% if sorted.size > 0 %}
+    <hr>
     <h2>Previous investigations</h2>
     {% for post in sorted %}
-
-    <hr>
 
       <article>
         <h3 style="margin-bottom: 4px;"><a href="{{ post.url }}">{{ post.title }}</a></h3>
