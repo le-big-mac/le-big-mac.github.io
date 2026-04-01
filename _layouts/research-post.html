@@ -28,7 +28,7 @@
         width: 100%;
         min-height: 80px;
         padding: 8px;
-        font-family: inherit;
+        font-family: monospace;
         font-size: 14px;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -36,20 +36,18 @@
         box-sizing: border-box;
         margin-bottom: 8px;
       }
-      .action-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
-      .action-buttons button {
-        padding: 6px 14px;
-        font-size: 13px;
-        border: 1px solid #ccc;
+      .action-panel button {
+        padding: 8px 20px;
+        font-size: 14px;
+        background: #333;
+        color: white;
+        border: none;
         border-radius: 4px;
         cursor: pointer;
-        background: white;
       }
-      .action-buttons button:hover { background: #eee; }
-      .action-buttons button.primary { background: #333; color: white; border-color: #333; }
-      .action-buttons button.primary:hover { background: #555; }
-      .action-buttons button.danger { color: #c62828; border-color: #c62828; }
-      .action-buttons button:disabled { opacity: 0.5; cursor: wait; }
+      .action-panel button:hover { background: #555; }
+      .action-panel button:disabled { opacity: 0.5; cursor: wait; }
+      .action-panel code { background: #eee; padding: 2px 5px; border-radius: 3px; font-size: 13px; }
       #action-status {
         margin-top: 8px;
         padding: 8px;
@@ -75,15 +73,18 @@
     {% if page.issue_number %}
     <div class="action-panel">
         <h3>Continue this investigation</h3>
-        <p>Add feedback or notes, then choose what to run next.</p>
-        <textarea id="feedback" placeholder="Optional: feedback, steering, changes to the plan..."></textarea>
-        <div class="action-buttons">
-            <button class="primary" onclick="sendCommand('plan')">Update plan</button>
-            <button class="primary" onclick="sendCommand('full')">Full run</button>
-            <button onclick="sendCommand('theory')">Theory track</button>
-            <button onclick="sendCommand('experiment')">Experiment track</button>
-            <button class="danger" onclick="sendCommand('close')">Close</button>
-        </div>
+        <p>Type a command with optional feedback. Examples:</p>
+        <ul style="margin: 4px 0 12px 0; font-size: 13px;">
+            <li><code>plan</code> — update the research plan</li>
+            <li><code>run</code> — full pipeline (experiments + paper)</li>
+            <li><code>run counsel</code> — full with all 3 agents debating</li>
+            <li><code>run theory</code> — full + math agents</li>
+            <li><code>run counsel theory focus on spectral gap</code> — composable</li>
+            <li><code>plan add kernel methods section</code> — plan with feedback</li>
+            <li><code>close</code></li>
+        </ul>
+        <textarea id="command-input" placeholder="e.g. run counsel theory — focus on the spectral analysis angle"></textarea>
+        <button id="submit-btn" onclick="submitCommand()">Send</button>
         <div id="action-status"></div>
     </div>
 
@@ -100,16 +101,17 @@
         return token;
       }
 
-      async function sendCommand(cmd) {
+      async function submitCommand() {
         const token = getToken();
         if (!token) return;
 
-        const feedback = document.getElementById('feedback').value.trim();
-        const body = feedback ? `/${cmd} ${feedback}` : `/${cmd}`;
-        const status = document.getElementById('action-status');
-        const buttons = document.querySelectorAll('.action-buttons button');
+        const input = document.getElementById('command-input').value.trim();
+        if (!input) return;
 
-        buttons.forEach(b => b.disabled = true);
+        const btn = document.getElementById('submit-btn');
+        const status = document.getElementById('action-status');
+
+        btn.disabled = true;
         status.className = '';
         status.style.display = 'none';
 
@@ -121,7 +123,7 @@
               'Accept': 'application/vnd.github+json',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({body: body}),
+            body: JSON.stringify({body: input}),
           });
 
           if (resp.status === 401) {
@@ -133,17 +135,24 @@
             throw new Error(err.message || `GitHub API returned ${resp.status}`);
           }
 
-          const labels = {plan: 'Updating plan', full: 'Full run queued', theory: 'Theory run queued', experiment: 'Experiment run queued', close: 'Investigation closed'};
-          status.textContent = `${labels[cmd]}. The agents will pick this up shortly.`;
+          status.textContent = 'Command sent. The agents will pick this up shortly.';
           status.className = 'success';
-          document.getElementById('feedback').value = '';
+          document.getElementById('command-input').value = '';
         } catch (err) {
           status.textContent = `Failed: ${err.message}`;
           status.className = 'error';
         } finally {
-          buttons.forEach(b => b.disabled = false);
+          btn.disabled = false;
         }
       }
+
+      // Submit on Ctrl/Cmd+Enter
+      document.getElementById('command-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          submitCommand();
+        }
+      });
     </script>
     {% endif %}
 
