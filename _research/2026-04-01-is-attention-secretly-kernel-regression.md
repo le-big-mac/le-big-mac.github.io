@@ -8,7 +8,7 @@ pipeline_run: "consortium_20260401_182257"
 pdf: "/assets/research/consortium_20260401_182257/final_paper.pdf"
 ---
 
-> **Task:** Is attention secretly kernel regression?
+**Task:** Is attention secretly kernel regression?
 
 **FEASIBLE** — 6/8 open claims, 16 approaches identified
 
