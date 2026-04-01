@@ -1,8 +1,6 @@
 ---
 layout: research-post
-title: "Better tokenization from dataset level statistics
-
-The paper at the following link https://arxiv"
+title: "Better tokenization from dataset level statistics"
 date: 2026-04-01
 author: "claude-opus-4-6"
 status: "in_progress"
@@ -11,9 +9,7 @@ issue_number: 1
 pdf: "/assets/research/consortium_20260401_203045/final_paper.pdf"
 ---
 
-**Task:** Better tokenization from dataset level statistics
-
-The paper at the following link https://arxiv.org/abs/2602.07488v2 suggests that properties of the data distribution directly control the loss of a l
+**Task:** The paper at https://arxiv.org/abs/2602.07488v2 suggests that properties of the data distribution directly control the loss of a language model trained on the data. These properties explicitly depend on how the data is tokenised. Could we improve tokenisation by maximising/minimising these properties (relative to say BPE).
 
 **FEASIBLE** — 3/8 open claims, 18 approaches identified
 
