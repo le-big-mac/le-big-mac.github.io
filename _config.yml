@@ -3,3 +3,9 @@ destination: ./_site # Where to output the built website
 markdown:    kramdown
 kramdown:
   hard_wrap: true
+
+# Hidden research collection (unlisted, noindex)
+collections:
+  research:
+    output: true
+    permalink: /research/:slug/

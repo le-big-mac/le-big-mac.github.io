@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/assets/styles.css">
+    {% if page.usemathjax %}
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+            TeX: { equationNumbers: { autoNumber: "AMS" }, Macros: { bm: ["{\\boldsymbol #1}", 1] } },
+            });
+        </script>
+        <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    {% endif %}
+    <title>{{ page.title }}</title>
+</head>
+<body>
+    <p><a href="/">Home</a> &nbsp; <a href="/research-lab.html">Research Lab</a></p>
+    <div class="post-title">
+        <h1>{{ page.title }}</h1>
+        <p>{{ page.author }}, {{ page.date | date_to_string }}</p>
+        {% if page.idea_id %}
+        <p class="date">Idea ID: {{ page.idea_id }}</p>
+        {% endif %}
+    </div>
+
+    {{ content }}
+
+</body>
+</html>
