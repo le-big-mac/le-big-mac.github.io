@@ -1,9 +1,10 @@
 ---
 layout: research-post
 title: "A theoretical study of RL dynamics."
+slug: "a-theoretical-study-of-rl-dynamics"
 date: 2026-04-03
 author: "gpt-5.4"
-status: "complete"
+status: "assessed"
 pipeline_run: "consortium_20260403_000048"
 issue_number: 4
 pdf: "/assets/research/consortium_20260403_000048/final_paper.pdf"
