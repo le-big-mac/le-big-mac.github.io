@@ -3,7 +3,7 @@ layout: research-post
 title: "Better tokenization from dataset level statistics"
 date: 2026-04-02
 author: "gpt-5.4"
-status: "in_progress"
+status: "assessed"
 pipeline_run: "consortium_20260402_163251"
 issue_number: 2
 pdf: "/assets/research/consortium_20260402_163251/final_paper.pdf"
