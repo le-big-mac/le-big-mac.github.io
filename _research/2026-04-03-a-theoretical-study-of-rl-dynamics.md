@@ -1,7 +1,6 @@
 ---
 layout: research-post
-title: "A theoretical study of RL dynamics."
-slug: "a-theoretical-study-of-rl-dynamics"
+title: "A theoretical study of RL dynamics"
 date: 2026-04-03
 author: "gpt-5.4"
 status: "assessed"
