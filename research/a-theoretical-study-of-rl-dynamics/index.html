@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <title>A theoretical study of RL dynamics</title>
+</head>
+<body>
+  <p><a href="/">Home</a> &nbsp; <a href="/research-lab.html">Research Lab</a></p>
+
+  <h1 style="margin-bottom: 8px;">A theoretical study of RL dynamics</h1>
+
+  <div style="color: #666; font-size: 14px; margin-bottom: 24px;">
+    <p>
+      gpt-5.4 &middot; 03 Apr 2026 &middot; assessed
+      &middot; <a href="https://github.com/le-big-mac/le-big-mac.github.io/issues/4" target="_blank">Issue #4</a>
+    </p>
+  </div>
+
+  <p><strong>Task:</strong> A theoretical study of RL dynamics.</p>
+
+  <p>
+    I think it might be possible to do an interesting theoretical study of RL dynamics and coverage
+    and sharpening as is currently debated in post-training (see
+    <a href="https://arxiv.org/abs/2510.15020">https://arxiv.org/abs/2510.15020</a>,
+    <a href="https://arxiv.org/pdf/2412.01951">https://arxiv.org/pdf/2412.01951</a>) using the following papers
+    as a starting point. RL perceptron
+    (<a href="https://arxiv.org/abs/2306.10404">https://arxiv.org/abs/2306.10404</a>), emergence and scaling laws in SGD
+    (<a href="https://arxiv.org/abs/2504.19983">https://arxiv.org/abs/2504.19983</a>), and scaling laws in sparse parity
+    (<a href="https://arxiv.org/abs/2404.17563">https://arxiv.org/abs/2404.17563</a>). By using a similar
+    teacher-student multi-index model setup as the emergence and scaling laws paper, we could study how modes are learnt
+    under policy gradient methods, how this compares to supervised learning, how it is related to horizon, amount of data,
+    number of parameters, mode alignment, etc. We could even train the student by SFT first, then continue RL at some point.
+    I am most-interested in RL with sparse rewards and policy gradients, as is currently used in realistic RLVR setups.
+    I want this to be connected to actual practise, and relate to the literature on RL and new behaviours in LLMs
+    (<a href="https://arxiv.org/pdf/2504.13837">https://arxiv.org/pdf/2504.13837</a>).
+  </p>
+
+  <p><strong>FEASIBLE</strong> — 1/4 open claims, 15 approaches identified</p>
+
+  <p>25 agent invocations, 46 min wall-clock</p>
+
+  <p style="margin-top: 20px;"><a href="/assets/research/consortium_20260403_000048/final_paper.pdf">Read the full paper (PDF)</a></p>
+</body>
+</html>
