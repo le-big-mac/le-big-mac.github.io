@@ -672,6 +672,35 @@
 
   function rankable() { return D.sets.filter(function (s) { return s.rankable; }); }
 
+  /* The rankings this browser has handed in, by set: {'painting|width': record}, the latest of each. A ranking
+     counts only while its set still holds the pictures it was made on. */
+  function ranked() {
+    var out = {};
+    stored().forEach(function (entry) {
+      var r = entry && entry.record;
+      if (!r || r.run_id !== D.run.id) return;
+      var s = sets.get(r.painting + '|' + r.width);
+      if (!s || !s.rankable || r.pictures_digest !== s.digest) return;
+      var letters = r.labels && typeof r.labels === 'object' ? Object.keys(r.labels) : [];
+      var same = letters.length === s.pictures.length && s.pictures.every(function (id) { return letters.some(function (l) { return r.labels[l] === id; }); });
+      var whole = Array.isArray(r.ranking) && r.ranking.length === letters.length && letters.every(function (l) { return r.ranking.indexOf(l) >= 0; });
+      if (same && whole) out[s.p + '|' + s.w] = r;
+    });
+    return out;
+  }
+
+  /* The selects mark what is ranked: a size once its set is, a painting once all of its sizes are. */
+  function markPicks() {
+    var done = ranked(), pick = $('g-painting'), size = $('g-width');
+    [].forEach.call(pick.options, function (o) {
+      var all = rankable().filter(function (s) { return s.p === o.value; });
+      o.text = paintings.get(o.value).name + (all.length && all.every(function (s) { return done[s.p + '|' + s.w]; }) ? ' ✓' : '');
+    });
+    [].forEach.call(size.options, function (o) {
+      o.text = o.value + ' wide' + (done[pick.value + '|' + o.value] ? ' ✓' : '');
+    });
+  }
+
   function initGame() {
     var game = $('game');
     list = $('g-list');
@@ -733,11 +762,7 @@
      the hardest to tell apart, and any set can still be chosen by hand. */
   function randomSet() {
     var all = rankable();
-    var done = {};
-    stored().forEach(function (entry) {
-      var r = entry && entry.record;
-      if (r && r.run_id === D.run.id) done[r.painting + '|' + r.width] = true;
-    });
+    var done = ranked();
     var current = G ? G.set : null;
     var smallest = Math.min.apply(null, all.map(function (s) { return s.w; }));
     var largest = Math.max.apply(null, all.map(function (s) { return s.w; }));
@@ -786,11 +811,17 @@
     } catch (error) { return null; }
   }
 
-  /* Deal a set: shuffled under fresh letters, or as `kept` holds it from before a reload. */
+  /* Deal a set: shuffled under fresh letters, or as `kept` holds it from before a reload. A set this browser has
+     ranked is not dealt again: it comes up as it was handed in, with the makers' names, and says so. */
   function dealSet(s, kept) {
     if (!s) return;
+    var mine = ranked()[s.p + '|' + s.w];
     var labels = {}, shown;
-    if (kept) {
+    if (mine) {
+      kept = null;
+      labels = mine.labels;
+      shown = mine.ranking;
+    } else if (kept) {
       labels = kept.labels;
       shown = kept.shown;
     } else {
@@ -798,7 +829,7 @@
       mixed.forEach(function (id, i) { labels[D.letters[i]] = id; });
       shown = mixed.map(function (_, i) { return D.letters[i]; });
     }
-    G = { set: s, labels: labels, shown: shown, startedAt: inView ? Date.now() : null, moves: kept ? kept.moves : 0, done: false };
+    G = { set: s, labels: labels, shown: shown, startedAt: inView ? Date.now() : null, moves: kept ? kept.moves : 0, done: !!mine };
     var p = paintings.get(s.p);
     if (p.ref) {
       // The credit sits under the painting where there is room beside the cards, and under the cards on a narrow screen,
@@ -818,7 +849,10 @@
     $('g-instr').hidden = false;
     $('g-result').hidden = true;
     $('g-result').replaceChildren();
+    $('g-ranked').hidden = true;
     $('g-live').textContent = '';
+    if (mine) reveal(mine, true);
+    markPicks();
   }
 
   function card(letter) {
@@ -1087,6 +1121,7 @@
     entries.push({ record: record, sent: CONFIG.endpoint ? false : 'local', to: destination() });
     var kept = store(entries);
     reveal(record);
+    markPicks();
     markSeen([G.set.p]); // the makers of this painting's pictures are on the page now
     var note = $('g-saved');
     if (!CONFIG.endpoint) {
@@ -1134,7 +1169,9 @@
     });
   }
 
-  function reveal(record) {
+  /* The board once a ranking is in: each picture under its maker's name, and the judges' order. `earlier`: the
+     ranking was handed in before, and the set has just been opened again. */
+  function reveal(record, earlier) {
     var s = G.set;
     var judged = { get: function (id) { return s.order.length >= 2 ? standing.get(id) : undefined; } };
     list.classList.add('done');
@@ -1152,6 +1189,7 @@
     });
     $('g-actions').hidden = true;
     $('g-instr').hidden = true;
+    $('g-ranked').hidden = false;
 
     var result = $('g-result');
     var parts = [h('h3', { text: 'Who made which' })];
@@ -1193,9 +1231,10 @@
     parts.push(h('div', { class: 'result-actions' }, again, h('a', { class: 'btn', href: '#results', text: 'See the results' })));
     result.replaceChildren.apply(result, parts);
     result.hidden = false;
+    keep();
+    if (earlier) { say('You ranked this set. Each picture shows its maker.'); return; } // the focus stays where the set was chosen
     parts[0].setAttribute('tabindex', '-1'); // the heading of the result takes the focus the hidden button had
     parts[0].focus({ preventScroll: true });
-    keep();
     say('Your order is set. Each picture now shows its maker.');
   }
 
