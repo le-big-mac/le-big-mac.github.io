@@ -636,10 +636,16 @@
     $('lb-stage').classList.toggle('has-ref', !!p.ref);
     var ref = $('lb-ref');
     if (p.ref && ref.getAttribute('data-p') !== p.id) {
-      var full = refImg(p, true);
-      full.style.background = 'center / contain no-repeat url("' + p.ref.thumb + '")'; // the small copy, there at once, until the full one is
-      full.addEventListener('load', function () { full.style.background = ''; });
-      ref.replaceChildren(full, h('figcaption', {}, creditNode(p)));
+      // The small copy is shown first: it is on hand already, so the picture is there at once. The full one is
+      // fetched aside and put in its place when it has arrived, so the picture is never an image still on its way
+      // (which some browsers draw as its description in words).
+      var shown = h('img', { src: p.ref.thumb, width: p.ref.w, height: p.ref.h, alt: p.name + ', the original', decoding: 'async' });
+      var full = new Image();
+      var swap = function () { if (shown.isConnected && ref.getAttribute('data-p') === p.id) shown.src = p.ref.src; };
+      full.src = p.ref.src;
+      if (full.decode) full.decode().then(swap, function () { /* the small copy stays */ });
+      else full.addEventListener('load', swap);
+      ref.replaceChildren(shown, h('figcaption', {}, creditNode(p)));
       ref.setAttribute('data-p', p.id);
     } else if (!p.ref) {
       ref.replaceChildren();

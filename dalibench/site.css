@@ -463,6 +463,7 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
   .lb.compare .lb-stage { grid-template-columns: 1fr 1fr; grid-template-rows: var(--pic-h, minmax(0, 1fr)) auto; align-content: center; row-gap: 0; }
   .lb.compare .lb-stage.has-ref { grid-template-columns: 0.6fr 1fr 1fr; }
   .lb.compare .lb-stage .lb-fig { grid-row: 1 / span 2; grid-template-rows: subgrid; }
+  .lb.compare .lb-stage .lb-ref img { object-position: center center; } /* the smaller original sits half-way up the two pictures beside it */
   .lb.compare .lb-pic:not(.sel) { display: grid; }
   .lb.compare #lb-sizes { display: none; }
   .lb.swap .lb-pic { display: grid; }
