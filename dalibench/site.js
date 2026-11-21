@@ -625,7 +625,7 @@
     $('lb-stage').classList.toggle('has-ref', !!p.ref);
     var ref = $('lb-ref');
     if (p.ref && ref.getAttribute('data-p') !== p.id) {
-      ref.replaceChildren(refImg(p, true), h('figcaption', {}, 'The original.', creditNode(p)));
+      ref.replaceChildren(refImg(p, true), h('figcaption', {}, creditNode(p)));
       ref.setAttribute('data-p', p.id);
     } else if (!p.ref) {
       ref.replaceChildren();
