@@ -78,6 +78,7 @@
       initGame();
       retryUnsent();
       loadPack();
+      preloadGameRefs();
     }).catch(function (error) {
       var notice = $('load-error');
       if (notice) notice.hidden = false;
@@ -173,12 +174,39 @@
     return models.get(a.m).label + ': ' + paintings.get(a.p).name + ', ' + a.w + ' by ' + a.h + ' cells';
   }
 
-  function refImg(p, eager) {
+  /* `sizes` says how wide the image is shown, so that the browser takes the smallest file that is sharp there. */
+  function refImg(p, eager, sizes) {
+    var files = [p.ref.thumb + ' ' + (p.ref.thumb_w || 420) + 'w'];
+    if (p.ref.mid) files.push(p.ref.mid + ' ' + p.ref.mid_w + 'w');
+    files.push(p.ref.src + ' ' + p.ref.w + 'w');
     return h('img', {
-      src: p.ref.src, srcset: p.ref.thumb + ' 420w, ' + p.ref.src + ' ' + Math.max(p.ref.w, p.ref.h) + 'w',
-      sizes: '(min-width: 900px) 40vw, 92vw', width: p.ref.w, height: p.ref.h,
+      src: p.ref.src, srcset: files.join(', '), sizes: sizes || '(min-width: 900px) 40vw, 92vw', width: p.ref.w, height: p.ref.h,
       alt: p.name + ', the original', loading: eager ? null : 'lazy', decoding: 'async'
     });
+  }
+
+  /* The original beside the pictures to rank: one image per painting, made once, so that it is fetched once and is
+     there at once when its set is dealt again. */
+  var GAME_SIZES = '(min-width: 900px) 24rem, 45vw';
+  var gameRefs = new Map();
+  function gameRef(p) {
+    if (!gameRefs.has(p.id)) gameRefs.set(p.id, refImg(p, true, GAME_SIZES));
+    return gameRefs.get(p.id);
+  }
+  /* The originals of the sets still to come, fetched one after another once the page is up, so that a new set shows
+     its painting without a wait. Not where a browser asks to save data. */
+  function preloadGameRefs() {
+    if (navigator.connection && navigator.connection.saveData) return;
+    var waiting = D.paintings.filter(function (p) {
+      return p.ref && !gameRefs.has(p.id) && rankable().some(function (s) { return s.p === p.id; });
+    });
+    (function next() {
+      var p = waiting.shift();
+      if (!p) return;
+      var img = gameRef(p), go = function () { setTimeout(next, 100); };
+      if (img.decode) img.decode().then(go, go);
+      else { img.addEventListener('load', go); img.addEventListener('error', go); }
+    })();
   }
 
   function creditNode(p) {
@@ -857,7 +885,7 @@
     if (p.ref) {
       // The credit sits under the painting where there is room beside the cards, and under the cards on a narrow screen,
       // where the painting stays in sight above them and has to stay small. The styles show one of the two.
-      $('g-ref').replaceChildren(refImg(p), h('figcaption', {}, h('b', { text: 'The original. ' }), p.name, creditNode(p)));
+      $('g-ref').replaceChildren(gameRef(p), h('figcaption', {}, h('b', { text: 'The original. ' }), p.name, creditNode(p)));
       $('g-credit').replaceChildren(creditNode(p));
     } else {
       $('g-ref').replaceChildren();
