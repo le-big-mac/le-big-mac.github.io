@@ -395,7 +395,6 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .game-actions { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center; margin-top: 1.5rem; }
 .game-privacy { margin: 0; flex: 1 1 18rem; font-size: 0.8rem; color: var(--muted); }
 .game-result { margin-top: 1.75rem; display: grid; gap: 1.25rem; }
-.game-result h3 { font-size: 1.2rem; }
 .verdict { font: 1.2rem/1.4 var(--serif); margin: 0; }
 .saved { font-size: 0.88rem; color: var(--muted); margin: 0; }
 .judge-row { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(6.2rem, 1fr)); gap: 0.6rem; }

@@ -1192,7 +1192,7 @@
     $('g-ranked').hidden = false;
 
     var result = $('g-result');
-    var parts = [h('h3', { text: 'Who made which' })];
+    var parts = [];
     if (s.order.length >= 2) {
       var same = 0, pairs = 0;
       var mine = record.ranking_attempts;
@@ -1233,7 +1233,7 @@
     result.hidden = false;
     keep();
     if (earlier) { say('You ranked this set. Each picture shows its maker.'); return; } // the focus stays where the set was chosen
-    parts[0].setAttribute('tabindex', '-1'); // the heading of the result takes the focus the hidden button had
+    parts[0].setAttribute('tabindex', '-1'); // the first line of the result takes the focus the hidden button had
     parts[0].focus({ preventScroll: true });
     say('Your order is set. Each picture now shows its maker.');
   }
