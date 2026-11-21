@@ -333,7 +333,6 @@ h1, h2, h3 { text-wrap: balance; }
 .larger-name { grid-column: 1 / -1; font-size: 1.15rem; }
 .larger-ref { margin: 0; display: grid; gap: 0.4rem; }
 .larger-ref .row-label { margin: 0; }
-@media (max-width: 899px) { .larger-ref .row-label.blank { display: none; } } /* one column: nothing beside it to line up with */
 .larger-ref figcaption { margin: 0; }
 .larger-ref img { width: 100%; max-width: 13rem; border-radius: 6px; background: var(--sunk); }
 .larger-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem 0.75rem; align-items: end; min-width: 0; }
