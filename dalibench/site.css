@@ -103,7 +103,7 @@ html:has(.lb[open]) { overflow: hidden; } /* the page does not move behind the e
 .top a { color: var(--muted); text-decoration: none; font-size: 0.92rem; display: inline-flex; align-items: center; height: 3rem; padding-inline: 0.55rem; }
 .top a:focus-visible { outline-offset: -3px; } /* inside the bar, which would cut a ring drawn outside the link */
 @media (max-width: 480px) { .top a { padding-inline: 0.35rem; } .top nav { margin-right: -0.35rem; } }
-@media (max-width: 520px) { .top .nav-out { display: none; } } /* no room on a phone: the same link is at the foot of the page */
+@media (max-width: 520px) { .top a { font-size: 0.8rem; padding-inline: 0.28rem; } .top nav { margin-right: -0.28rem; } .top-in { gap: 0.4rem; } .top .wide { display: none; } } /* a phone: five links and the way home on one line, the first cut to "How" */
 @media (max-width: 359px) { .top a { font-size: 0.84rem; padding-inline: 0.25rem; } }
 .top a:hover, .top a:focus-visible { color: var(--ink); }
 .top .home { display: inline-flex; align-items: center; color: var(--ink); }
@@ -183,6 +183,8 @@ figcaption .chips { margin: 0.6rem 0 0; display: flex; }
 .code.task { white-space: pre-wrap; }
 .code .k { color: var(--accent); font-weight: 600; }
 .code.reply { color: var(--muted); }
+.code.bib { max-width: 46rem; margin: 0 0 0.75rem; white-space: pre; overflow-x: auto; user-select: all; }
+.bib-done { margin-left: 0.6rem; color: var(--muted); font-size: 0.85rem; }
 
 .demo { margin-top: 1.25rem; }
 .demo-label { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; color: var(--muted); margin: 0 0 0.4rem; }

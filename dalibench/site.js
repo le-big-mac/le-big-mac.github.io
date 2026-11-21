@@ -61,6 +61,27 @@
     });
   }
 
+  /* The citation at the foot of the page: the button puts it on the clipboard, and where it cannot, selects it. */
+  function initCitation() {
+    var button = $('bib-copy'), entry = $('bib'), done = $('bib-done');
+    if (!button || !entry) return;
+    button.addEventListener('click', function () {
+      var said = function (text) { done.textContent = text; setTimeout(function () { done.textContent = ''; }, 2500); };
+      var select = function () {
+        var range = document.createRange();
+        range.selectNodeContents(entry);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        var copied = false;
+        try { copied = document.execCommand('copy'); } catch (error) { /* an old way that a browser may refuse */ }
+        said(copied ? 'Copied.' : 'Selected: copy it with your keyboard.');
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(entry.textContent).then(function () { said('Copied.'); }, select);
+      else select();
+    });
+  }
+
   function start() {
     var version = document.body.getAttribute('data-version') || '';
     Promise.all([
@@ -77,6 +98,7 @@
       initLarger();
       initGame();
       retryUnsent();
+      initCitation();
       loadPack();
       preloadGameRefs();
     }).catch(function (error) {
