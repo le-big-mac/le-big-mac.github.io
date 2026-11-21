@@ -114,6 +114,8 @@ html:has(.lb[open]) { overflow: hidden; } /* the page does not move behind the e
 .hero { padding-top: clamp(2.5rem, 7vw, 5rem) !important; }
 .lede { font-family: var(--serif); font-size: clamp(1.1rem, 2.1vw, 1.5rem); line-height: 1.45; margin: 1.25rem 0 0.75rem; }
 @media (min-width: 900px) { .lede { white-space: nowrap; } } /* one line where there is room for it */
+.byline { color: var(--muted); font-size: 0.95rem; margin: 0 0 1.25rem; }
+.byline a { color: inherit; }
 .ask { max-width: 42rem; color: var(--ink); font-size: 1.1rem; line-height: 1.6; margin: 1.75rem 0 0; }
 .ask + .ask { margin-top: 0.9rem; }
 .spoiler { width: fit-content; max-width: 100%; margin: 0.25rem 0 1.25rem; padding: 0.55rem 0.9rem; border-left: 3px solid var(--accent); background: var(--tint); border-radius: 0 6px 6px 0; font-size: 0.95rem; }
