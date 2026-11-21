@@ -77,12 +77,32 @@
       initLarger();
       initGame();
       retryUnsent();
+      loadPack();
     }).catch(function (error) {
       var notice = $('load-error');
       if (notice) notice.hidden = false;
       if (window.console) console.error(error);
     });
   }
+
+  /* The pictures in one file. Each is tiny, and fetched one by one they come in slowly, most of all in the galleries.
+     With the pack in hand a picture is drawn without a request of its own. Until it arrives, and if it never does,
+     pictures load from their own files. A browser that asks to save data is not sent the pack. */
+  function loadPack() {
+    if (navigator.connection && navigator.connection.saveData) return;
+    getJSON('pictures.json?v=' + encodeURIComponent(D.data_version)).then(function (pack) {
+      var inline = function (src) { return typeof pack[src] === 'string' ? 'data:image/png;base64,' + pack[src] : null; };
+      byId.forEach(function (a) { if (a.src) a.src = inline(a.src) || a.src; });
+      [].forEach.call(document.querySelectorAll('img.px'), function (img) { // those on the page already and still to come in
+        var body = inline(img.getAttribute('src'));
+        if (!body || (img.complete && img.naturalWidth)) return;
+        img.src = body; // first, so that dropping `loading` starts no request for the file
+        img.removeAttribute('loading');
+      });
+    }).catch(function () { /* the pictures load from their files */ });
+  }
+  /* A picture that came with the pack is in hand: there is nothing to put off until it is near the screen. */
+  function inPack(src) { return /^data:/.test(src || ''); }
 
   function index() {
     D.models.forEach(function (m) { models.set(m.id, m); });
@@ -146,7 +166,7 @@
   }
 
   function pictureImg(a, alt, eager) {
-    return h('img', { class: 'px', src: a.src, width: a.w, height: a.h, alt: alt, loading: eager ? null : 'lazy', decoding: 'async', draggable: 'false' });
+    return h('img', { class: 'px', src: a.src, width: a.w, height: a.h, alt: alt, loading: eager || inPack(a.src) ? null : 'lazy', decoding: 'async', draggable: 'false' });
   }
 
   function altFor(a) {
@@ -296,7 +316,7 @@
   }
 
   function stripImg(src, w, hgt, cls, title) {
-    return h('img', { class: cls, src: src, width: w, height: hgt, alt: '', title: title, loading: 'lazy', decoding: 'async' });
+    return h('img', { class: cls, src: src, width: w, height: hgt, alt: '', title: title, loading: inPack(src) ? null : 'lazy', decoding: 'async' });
   }
   /* A small copy of the real painting, with its credit to hand wherever it is shown. */
   function refThumb(p, cls) {
