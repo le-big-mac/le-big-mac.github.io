@@ -450,15 +450,17 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 @media (min-width: 900px) and (min-aspect-ratio: 1/1) {
   /* The original and the picture share two rows, pictures above and captions below, so that the two pictures are
      level and the same size whatever stands under either of them. */
-  .lb-stage.has-ref { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; align-content: center; row-gap: 0; }
+  /* The row of pictures has a height in pixels, which the script works out from the room there is (fitStage): each
+     picture as tall as its width makes it, and no taller than fits. A height that is stated cannot run over the bar
+     above, however a browser sizes a row from its pictures. Until the script has said, the row takes all the room.
+     Each picture stands on the line its caption is under, and the two rows sit in the middle of the screen. */
+  .lb-stage.has-ref { grid-template-columns: 1fr 1fr; grid-template-rows: var(--pic-h, minmax(0, 1fr)) auto; align-content: center; row-gap: 0; }
   .lb-stage.has-ref .lb-fig { grid-row: 1 / span 2; grid-template-rows: subgrid; }
-  /* Each picture is as tall as its width makes it, up to what the screen has room for, and stands on the line its
-     caption is under: the captions are right below the pictures, and the whole is in the middle of the screen. */
-  .lb-stage.has-ref .lb-fig img, .lb.compare .lb-stage .lb-fig img { height: auto; max-height: calc(100dvh - 15rem); align-self: end; }
-  .lb-stage.has-ref .lb-fig .nopic, .lb.compare .lb-stage .lb-fig .nopic { height: auto; align-self: end; } /* a missing picture's box stands on the same line */
+  .lb-stage.has-ref .lb-fig img, .lb.compare .lb-stage .lb-fig img { object-position: center bottom; }
+  .lb-stage.has-ref .lb-fig .nopic, .lb.compare .lb-stage .lb-fig .nopic { align-self: end; } /* a missing picture's box stands on the same line */
   .lb-stage.has-ref .lb-ref { display: grid; }
   /* Two sizes of one model's picture, side by side and level, with the original smaller beside them. */
-  .lb.compare .lb-stage { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; align-content: center; row-gap: 0; }
+  .lb.compare .lb-stage { grid-template-columns: 1fr 1fr; grid-template-rows: var(--pic-h, minmax(0, 1fr)) auto; align-content: center; row-gap: 0; }
   .lb.compare .lb-stage.has-ref { grid-template-columns: 0.6fr 1fr 1fr; }
   .lb.compare .lb-stage .lb-fig { grid-row: 1 / span 2; grid-template-rows: subgrid; }
   .lb.compare .lb-pic:not(.sel) { display: grid; }

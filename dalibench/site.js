@@ -497,6 +497,7 @@
     if (dialog && typeof dialog.showModal !== 'function') dialog = null; // an old browser: pictures simply do not enlarge
     if (!dialog) return;
     $('lb-close').addEventListener('click', function () { dialog.close(); });
+    window.addEventListener('resize', function () { if (dialog.open) fitStage(); });
     $('lb-prev').addEventListener('click', function () { step(-1); });
     $('lb-next').addEventListener('click', function () { step(1); });
     $('lb-swap').addEventListener('click', function () {
@@ -655,6 +656,7 @@
       $('lb-sizes').removeAttribute('data-sizes');
       $('lb-prev').setAttribute('aria-label', 'Previous picture');
       $('lb-next').setAttribute('aria-label', 'Next picture');
+      fitStage();
       return;
     }
     markSeen([LB.p]); // the enlarged view names the maker
@@ -702,6 +704,43 @@
     var unit = LB.axis === 'painting' ? 'painting' : 'model';
     $('lb-prev').setAttribute('aria-label', 'Previous ' + unit);
     $('lb-next').setAttribute('aria-label', 'Next ' + unit);
+    fitStage();
+  }
+
+  /* Where pictures stand side by side, the height of their row: each picture as tall as its width makes it, and no
+     taller than the room between the bar above and the controls below, less the tallest caption. It is measured and
+     given to the styles as a length (--pic-h), so that no browser has to work a row's height out from its pictures:
+     one that did so differently let the pictures run over the bar and its close button. */
+  var SIDE_BY_SIDE = window.matchMedia ? window.matchMedia('(min-width: 900px) and (min-aspect-ratio: 1/1)') : null;
+  function fitStage() {
+    var stage = $('lb-stage');
+    if (!stage) return;
+    stage.style.removeProperty('--pic-h');
+    var beside = stage.classList.contains('has-ref') || dialog.classList.contains('compare');
+    if (!dialog.open || !beside || !SIDE_BY_SIDE || !SIDE_BY_SIDE.matches) return;
+    var style = getComputedStyle(stage);
+    var room = stage.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+    var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    var wanted = 0, captions = 0;
+    [].forEach.call(stage.querySelectorAll('.lb-fig'), function (figure) {
+      var box = figure.firstElementChild; // the picture, or the box that stands where one would be
+      if (!box || figure.offsetParent === null) return;
+      var caption = figure.querySelector('figcaption');
+      if (caption) captions = Math.max(captions, caption.getBoundingClientRect().height + parseFloat(getComputedStyle(caption).marginTop));
+      var shape, width = figure.clientWidth, most = Infinity;
+      if (box.tagName === 'IMG') {
+        shape = Number(box.getAttribute('width')) / Number(box.getAttribute('height'));
+      } else {
+        var parts = String(box.style.aspectRatio || '').split('/');
+        shape = Number(parts[0]) / Number(parts[1]);
+        width = Math.min(width, 30 * rem); // the box of a missing picture is kept small (see .lb-fig .nopic)
+        most = 22 * rem;
+      }
+      if (!(shape > 0)) shape = 4 / 3;
+      wanted = Math.max(wanted, Math.min(width / shape, most));
+    });
+    if (!wanted) return;
+    stage.style.setProperty('--pic-h', Math.max(40, Math.floor(Math.min(wanted, room - captions))) + 'px');
   }
 
   /* ------------------------------------------------------------ rank them yourself */
