@@ -103,6 +103,7 @@ html:has(.lb[open]) { overflow: hidden; } /* the page does not move behind the e
 .top a { color: var(--muted); text-decoration: none; font-size: 0.92rem; display: inline-flex; align-items: center; height: 3rem; padding-inline: 0.55rem; }
 .top a:focus-visible { outline-offset: -3px; } /* inside the bar, which would cut a ring drawn outside the link */
 @media (max-width: 480px) { .top a { padding-inline: 0.35rem; } .top nav { margin-right: -0.35rem; } }
+@media (max-width: 520px) { .top .nav-out { display: none; } } /* no room on a phone: the same link is at the foot of the page */
 @media (max-width: 359px) { .top a { font-size: 0.84rem; padding-inline: 0.25rem; } }
 .top a:hover, .top a:focus-visible { color: var(--ink); }
 .top .home { display: inline-flex; align-items: center; color: var(--ink); }
