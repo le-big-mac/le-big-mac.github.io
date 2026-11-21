@@ -455,6 +455,7 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
   /* Each picture is as tall as its width makes it, up to what the screen has room for, and stands on the line its
      caption is under: the captions are right below the pictures, and the whole is in the middle of the screen. */
   .lb-stage.has-ref .lb-fig img, .lb.compare .lb-stage .lb-fig img { height: auto; max-height: calc(100dvh - 15rem); align-self: end; }
+  .lb-stage.has-ref .lb-fig .nopic, .lb.compare .lb-stage .lb-fig .nopic { height: auto; align-self: end; } /* a missing picture's box stands on the same line */
   .lb-stage.has-ref .lb-ref { display: grid; }
   /* Two sizes of one model's picture, side by side and level, with the original smaller beside them. */
   .lb.compare .lb-stage { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; align-content: center; row-gap: 0; }
