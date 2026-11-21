@@ -347,8 +347,10 @@
     return h('img', { class: cls, src: src, width: w, height: hgt, alt: '', title: title, loading: inPack(src) ? null : 'lazy', decoding: 'async' });
   }
   /* A small copy of the real painting, with its credit to hand wherever it is shown. */
-  function refThumb(p, cls) {
-    return stripImg(p.ref.thumb, p.ref.w, p.ref.h, cls, p.name + (p.credit ? '. ' + p.credit : ''));
+  function refThumb(p, cls, focus) {
+    var img = stripImg(p.ref.thumb, p.ref.w, p.ref.h, cls, p.name + (p.credit ? '. ' + p.credit : ''));
+    if (focus) img.style.objectPosition = focus; // where a small frame is cut from, for a painting whose subject is not near its top
+    return img;
   }
 
   /* `shows` lists the paintings whose pictures the opened gallery shows with their makers' names. */
@@ -404,7 +406,7 @@
         var grid = h('div', { class: 'grid', style: '--n:' + D.widths.length });
         D.paintings.forEach(function (p) {
           var row = h('div', { class: 'row', role: 'group', 'aria-label': p.name },
-            h('div', { class: 'row-label' }, p.ref ? refThumb(p, '') : null,
+            h('div', { class: 'row-label' }, p.ref ? refThumb(p, '', p.focus) : null,
               h('span', {}, p.name, ' ', h('small', { text: p.artist }))));
           D.widths.forEach(function (w) { row.append(cell(p.id, w, m.id, 'painting')); });
           grid.append(row);
@@ -415,6 +417,7 @@
 
   function initGalleries() {
     var apartPanel = $('panel-apart');
+    if (apartPanel) apartPanel.addEventListener('click', enlargeFromGallery); // its section is outside the galleries'
     if (apartPanel) (D.apart || []).forEach(function (m) {
       var own = modelGallery(m, true);
       apartPanel.append(own);
@@ -446,12 +449,15 @@
         event.preventDefault();
       });
     });
-    document.querySelector('.pictures').addEventListener('click', function (event) {
-      var button = event.target.closest('.gal .pic');
-      if (!button) return;
-      openGallery({ p: button.getAttribute('data-p'), w: Number(button.getAttribute('data-w')), m: button.getAttribute('data-m'),
-        n: Number(button.getAttribute('data-n')) || null }, button.getAttribute('data-axis'));
-    });
+    document.querySelector('.pictures').addEventListener('click', enlargeFromGallery);
+  }
+
+  /* A click on a picture of a gallery opens it enlarged. */
+  function enlargeFromGallery(event) {
+    var button = event.target.closest('.gal .pic');
+    if (!button) return;
+    openGallery({ p: button.getAttribute('data-p'), w: Number(button.getAttribute('data-w')), m: button.getAttribute('data-m'),
+      n: Number(button.getAttribute('data-n')) || null }, button.getAttribute('data-axis'));
   }
 
   /* The section of pictures at the larger size: its rows are in the page already. A picture opens enlarged, where the

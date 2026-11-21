@@ -446,8 +446,10 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .lb.swap .lb-pic { display: none; }
 .lb.no-ref #lb-swap { display: none; }
 @media (min-width: 900px) and (min-aspect-ratio: 1/1) {
-  .lb-stage.has-ref { grid-template-columns: 1fr 1fr; }
-  .lb-stage.has-ref figcaption { min-height: 4.6rem; } /* the two pictures stay level, whatever the credit's length */
+  /* The original and the picture share two rows, pictures above and captions below, so that the two pictures are
+     level and the same size whatever stands under either of them. */
+  .lb-stage.has-ref { grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr) auto; row-gap: 0; }
+  .lb-stage.has-ref .lb-fig { grid-row: 1 / span 2; grid-template-rows: subgrid; }
   .lb-stage.has-ref .lb-ref { display: grid; }
   .lb.swap .lb-pic { display: grid; }
   #lb-swap { display: none; }
