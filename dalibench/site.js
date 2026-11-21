@@ -1,4 +1,4 @@
-/* Painting Recall Benchmark: the galleries, the enlarged view and the ranking game.
+/* DaliBench: the galleries, the enlarged view, and the ranking game.
    Plain JavaScript, no dependencies. It reads data.json and config.json, both beside this file. */
 (function () {
   'use strict';
@@ -285,7 +285,7 @@
       });
     });
     window.addEventListener('hashchange', function () { show(fromAddress(), false); });
-    try { sessionStorage.removeItem('paintbench.size'); } catch (error) { /* no storage */ }  // a choice an earlier page kept
+    try { sessionStorage.removeItem('paintbench.size'); } catch (error) { /* no storage */ }  // an earlier version of the page kept the choice here
     control.hidden = false;
     show(fromAddress(), false);
   }
