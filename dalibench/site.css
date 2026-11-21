@@ -329,7 +329,10 @@ h1, h2, h3 { text-wrap: balance; }
 .larger-row { display: grid; gap: 1rem 1.25rem; grid-template-columns: 1fr; align-items: start; padding: 1.25rem 0; border-top: 1px solid var(--line); }
 .larger-row:first-of-type { border-top: 0; }
 @media (min-width: 900px) { .larger-row { grid-template-columns: minmax(9rem, 13rem) repeat(var(--models), minmax(0, 1fr)); } }
-.larger-ref { margin: 0; }
+.larger-name { grid-column: 1 / -1; font-size: 1.15rem; }
+.larger-ref { margin: 0; display: grid; gap: 0.4rem; }
+.larger-ref .row-label { margin: 0; }
+.larger-ref figcaption { margin: 0; }
 .larger-ref img { width: 100%; max-width: 13rem; border-radius: 6px; background: var(--sunk); }
 .larger-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem 0.75rem; align-items: end; min-width: 0; }
 .larger-pair .row-label { grid-column: 1 / -1; margin: 0; align-self: start; }
