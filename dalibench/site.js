@@ -195,8 +195,15 @@
   }
   /* The originals of the sets still to come, fetched one after another once the page is up, so that a new set shows
      its painting without a wait. Not where a browser asks to save data. */
+  var held = []; // images fetched ahead, kept so that the browser keeps them
   function preloadGameRefs() {
     if (navigator.connection && navigator.connection.saveData) return;
+    D.paintings.forEach(function (p) { // the small copy of every original first: the galleries and the sections below show it
+      if (!p.ref) return;
+      var small = new Image();
+      small.src = p.ref.thumb;
+      held.push(small);
+    });
     var waiting = D.paintings.filter(function (p) {
       return p.ref && !gameRefs.has(p.id) && rankable().some(function (s) { return s.p === p.id; });
     });
@@ -223,7 +230,7 @@
         h('div', { class: 'withheld' }, 'The original is not reproduced on this page. ',
           p.source_url ? h('a', { href: p.source_url, rel: 'noopener noreferrer', text: 'See it at its source.' }) : null));
     }
-    return h('figure', { class: cls }, refImg(p),
+    return h('figure', { class: cls }, refImg(p, true, GAME_SIZES), // the file the ranking game shows, which is fetched ahead
       h('figcaption', {}, h('b', { text: 'The original. ' }), [p.name, p.artist, p.date].filter(Boolean).join(', ') + '.', creditNode(p)));
   }
 
@@ -349,6 +356,7 @@
   /* A small copy of the real painting, with its credit to hand wherever it is shown. */
   function refThumb(p, cls, focus) {
     var img = stripImg(p.ref.thumb, p.ref.w, p.ref.h, cls, p.name + (p.credit ? '. ' + p.credit : ''));
+    img.removeAttribute('loading'); // sixteen small files, fetched when the page opens: nothing to put off
     if (focus) img.style.objectPosition = focus; // where a small frame is cut from, for a painting whose subject is not near its top
     return img;
   }
@@ -625,7 +633,10 @@
     $('lb-stage').classList.toggle('has-ref', !!p.ref);
     var ref = $('lb-ref');
     if (p.ref && ref.getAttribute('data-p') !== p.id) {
-      ref.replaceChildren(refImg(p, true), h('figcaption', {}, creditNode(p)));
+      var full = refImg(p, true);
+      full.style.background = 'center / contain no-repeat url("' + p.ref.thumb + '")'; // the small copy, there at once, until the full one is
+      full.addEventListener('load', function () { full.style.background = ''; });
+      ref.replaceChildren(full, h('figcaption', {}, creditNode(p)));
       ref.setAttribute('data-p', p.id);
     } else if (!p.ref) {
       ref.replaceChildren();
