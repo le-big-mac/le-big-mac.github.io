@@ -105,7 +105,7 @@ html:has(.lb[open]) { overflow: hidden; } /* the page does not move behind the e
 @media (max-width: 480px) { .top a { padding-inline: 0.35rem; } .top nav { margin-right: -0.35rem; } }
 @media (max-width: 359px) { .top a { font-size: 0.84rem; padding-inline: 0.25rem; } }
 .top a:hover, .top a:focus-visible { color: var(--ink); }
-.top .home { color: var(--ink); font-weight: 600; }
+.top .home { display: inline-flex; align-items: center; color: var(--ink); }
 .top .brand { display: none; font: 600 1rem/1 var(--serif); color: var(--ink); margin-left: -0.55rem; }
 @media (min-width: 760px) { .top .brand { display: inline-flex; } }
 
