@@ -648,9 +648,11 @@
   var list = null;
   var inView = false; // whether the pictures to rank are on screen
   var memory = []; // rankings, when this browser gives the page no storage
+  var unsaved = false; // whether the browser refused the last write of them
 
   function stored() {
     try {
+      if (unsaved) return memory; // the last write was refused: what is in storage is behind this visit
       var kept = JSON.parse(localStorage.getItem(LS_RANKINGS) || '[]');
       return Array.isArray(kept) ? kept : [];
     } catch (error) { return memory; }
@@ -659,7 +661,8 @@
   function store(entries) {
     entries = entries.slice(-KEPT);
     memory = entries;
-    try { localStorage.setItem(LS_RANKINGS, JSON.stringify(entries)); return true; } catch (error) { return false; }
+    try { localStorage.setItem(LS_RANKINGS, JSON.stringify(entries)); unsaved = false; } catch (error) { unsaved = true; }
+    return !unsaved;
   }
   function randomHex(bytes) {
     var values = new Uint8Array(bytes);
@@ -1111,6 +1114,7 @@
 
   function submit() {
     if (!G || G.done) return;
+    if (ranked()[G.set.p + '|' + G.set.w]) { dealSet(G.set); return; } // handed in from another tab meanwhile: shown, not sent again
     if (!G.moves && !window.confirm('You have not moved any picture. Submit the order as it is?')) return;
     G.done = true;
     var ranking = order();
@@ -1215,7 +1219,7 @@
     var parts = [];
     if (s.order.length >= 2) {
       var same = 0, pairs = 0;
-      var mine = record.ranking_attempts;
+      var mine = record.ranking.map(function (letter) { return record.labels[letter]; });
       for (var i = 0; i < mine.length; i++) {
         for (var j = i + 1; j < mine.length; j++) {
           var x = judged.get(mine[i]), y = judged.get(mine[j]);
