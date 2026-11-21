@@ -457,7 +457,6 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
   .lb-stage.has-ref { grid-template-columns: 1fr 1fr; grid-template-rows: var(--pic-h, minmax(0, 1fr)) auto; align-content: center; row-gap: 0; }
   .lb-stage.has-ref .lb-fig { grid-row: 1 / span 2; grid-template-rows: subgrid; }
   .lb-stage.has-ref .lb-fig img, .lb.compare .lb-stage .lb-fig img { object-position: center bottom; }
-  .lb-stage.has-ref .lb-fig .nopic, .lb.compare .lb-stage .lb-fig .nopic { align-self: end; } /* a missing picture's box stands on the same line */
   .lb-stage.has-ref .lb-ref { display: grid; }
   /* Two sizes of one model's picture, side by side and level, with the original smaller beside them. */
   .lb.compare .lb-stage { grid-template-columns: 1fr 1fr; grid-template-rows: var(--pic-h, minmax(0, 1fr)) auto; align-content: center; row-gap: 0; }
