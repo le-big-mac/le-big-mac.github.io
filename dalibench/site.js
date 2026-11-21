@@ -809,8 +809,8 @@
     if (kept) deal(kept.set, kept); else deal(randomSet());
   }
 
-  /* A set this browser has not ranked yet, away from the smallest size where there is a choice: those pictures are
-     the hardest to tell apart, and any set can still be chosen by hand. */
+  /* A set this browser has not ranked yet, at the size that is on the table: a visitor who chose 16 wide gets another
+     set at 16 wide. Only when that size is used up does it go to another, the largest first. */
   function randomSet() {
     var all = rankable();
     var done = ranked();
@@ -821,8 +821,12 @@
     function fresh(s) { return !done[s.p + '|' + s.w] && s !== current; }
     // The first choice that leaves anything: a painting whose makers this browser has not been shown, and never
     // the painting of the examples at the top while another is left.
+    var size = current ? current.w : largest; // the size on the table is kept; the first set dealt is at the largest, which shows the most
     var wishes = [
-      // the largest size first: it shows the most
+      function (s) { return fresh(s) && s.w === size && !known[s.p] && s.p !== example; },
+      function (s) { return fresh(s) && s.w === size && s.p !== example; },
+      function (s) { return fresh(s) && s.w === size; },
+      // nothing left at that size: the largest, then the others
       function (s) { return fresh(s) && s.w === largest && !known[s.p] && s.p !== example; },
       function (s) { return fresh(s) && s.w === largest && s.p !== example; },
       function (s) { return fresh(s) && s.w > smallest && !known[s.p] && s.p !== example; },
