@@ -478,7 +478,7 @@
       if (!button) return;
       openGallery({ p: button.getAttribute('data-p'), w: Number(button.getAttribute('data-w')), m: button.getAttribute('data-m'),
         n: Number(button.getAttribute('data-n')) || null }, 'model',
-      { widths: [D.larger.base, D.larger.width], models: D.larger.models.map(function (m) { return models.get(m.id); }) });
+      { widths: [D.larger.base, D.larger.width], models: D.larger.models.map(function (m) { return models.get(m.id); }), compare: true });
     });
     if (!('IntersectionObserver' in window)) return;
     var watcher = new IntersectionObserver(function (entries) { // a row on screen shows a painting's pictures under their makers' names
@@ -562,11 +562,13 @@
     render();
   }
 
-  /* `among`, where given, narrows what the view steps through: {widths: [...], models: [...]}. */
+  /* `among`, where given, narrows what the view steps through: {widths: [...], models: [...]}. With `compare`, the
+     model's pictures at the two widths are shown side by side, where the screen has room, beside the original. */
   function openGallery(a, axis, among) {
     if (!dialog) return;
     LB = { mode: 'gallery', p: a.p, w: a.w, m: a.m, n: a.n || null, axis: axis === 'painting' ? 'painting' : 'model',
-      widths: (among && among.widths) || D.widths, models: (among && among.models) || D.models };
+      widths: (among && among.widths) || D.widths, models: (among && among.models) || D.models,
+      compare: !!(among && among.compare && among.widths && among.widths.length === 2) };
     show();
   }
 
@@ -642,7 +644,9 @@
       ref.replaceChildren();
       ref.removeAttribute('data-p');
     }
-    var what = $('lb-what'), pic = $('lb-pic');
+    var what = $('lb-what'), pic = $('lb-pic'), pic2 = $('lb-pic2');
+    dialog.classList.toggle('compare', !blind && !!LB.compare);
+    if (blind || !LB.compare) pic2.replaceChildren();
     if (blind) {
       var item = LB.items[LB.i];
       pic.replaceChildren(pictureImg(a, 'Picture ' + item.label + ', maker hidden', true), h('figcaption', { text: a.w + ' × ' + a.h + ' cells' }));
@@ -657,7 +661,20 @@
     var model = models.get(LB.m);
     var height = (a && a.h) || heightAt(LB.p, LB.w);
     var facts = [LB.w + ' × ' + (height || '?') + ' cells'];
-    if (a && a.src) {
+    if (LB.compare) { // the model's picture at each of the two widths, each under its size
+      facts = [];
+      [pic, pic2].forEach(function (figure, i) {
+        var w = LB.widths[i];
+        var found = cells.get(LB.p + '|' + w + '|' + LB.m) || [];
+        var one = (w === LB.w && found.filter(function (x) { return x.n === LB.n; })[0]) || found[0];
+        var size = w + ' × ' + ((one && one.h) || heightAt(LB.p, w) || '?');
+        figure.replaceChildren(one && one.src ? pictureImg(one, altFor(one), true) : noPicture(one, LB.p, w, true),
+          h('figcaption', { text: size + ' cells' }));
+        figure.classList.toggle('sel', w === LB.w); // the one shown where there is room for one only
+        facts.push(size);
+      });
+      facts = [facts.join(' and ') + ' cells'];
+    } else if (a && a.src) {
       var place = standing.get(idOf(a));
       if (place) facts.push('judged ' + placed(place) + ' of ' + place.of + ' at this size');
       if (a.secs) facts.push('took ' + duration(a.secs));

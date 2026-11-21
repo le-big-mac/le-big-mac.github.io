@@ -442,15 +442,26 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .lb-fig .nopic small { font-size: 0.9rem; max-width: 24rem; }
 .lb-fig figcaption { text-align: center; margin-top: 0.5rem; font-size: 0.8rem; max-width: 40rem; }
 .lb-ref { display: none; }
+.lb:not(.compare) .lb-pic2 { display: none; } /* the second picture is for the two sizes side by side */
+.lb.compare .lb-pic:not(.sel) { display: none; } /* no room for both: the size chosen below */
 .lb.swap .lb-ref { display: grid; }
 .lb.swap .lb-pic { display: none; }
 .lb.no-ref #lb-swap { display: none; }
 @media (min-width: 900px) and (min-aspect-ratio: 1/1) {
   /* The original and the picture share two rows, pictures above and captions below, so that the two pictures are
      level and the same size whatever stands under either of them. */
-  .lb-stage.has-ref { grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr) auto; row-gap: 0; }
+  .lb-stage.has-ref { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; align-content: center; row-gap: 0; }
   .lb-stage.has-ref .lb-fig { grid-row: 1 / span 2; grid-template-rows: subgrid; }
+  /* Each picture is as tall as its width makes it, up to what the screen has room for, and stands on the line its
+     caption is under: the captions are right below the pictures, and the whole is in the middle of the screen. */
+  .lb-stage.has-ref .lb-fig img, .lb.compare .lb-stage .lb-fig img { height: auto; max-height: calc(100dvh - 15rem); align-self: end; }
   .lb-stage.has-ref .lb-ref { display: grid; }
+  /* Two sizes of one model's picture, side by side and level, with the original smaller beside them. */
+  .lb.compare .lb-stage { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; align-content: center; row-gap: 0; }
+  .lb.compare .lb-stage.has-ref { grid-template-columns: 0.6fr 1fr 1fr; }
+  .lb.compare .lb-stage .lb-fig { grid-row: 1 / span 2; grid-template-rows: subgrid; }
+  .lb.compare .lb-pic:not(.sel) { display: grid; }
+  .lb.compare #lb-sizes { display: none; }
   .lb.swap .lb-pic { display: grid; }
   #lb-swap { display: none; }
 }
