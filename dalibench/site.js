@@ -448,11 +448,7 @@
   function initGalleries() {
     var apartPanel = $('panel-apart');
     if (apartPanel) apartPanel.addEventListener('click', enlargeFromGallery); // its section is outside the galleries'
-    if (apartPanel) (D.apart || []).forEach(function (m) {
-      var own = modelGallery(m, true);
-      apartPanel.append(own);
-      own.open = true;  // shown open: it is the whole of its section
-    });
+    if (apartPanel) (D.apart || []).forEach(function (m) { apartPanel.append(modelGallery(m, true)); }); // closed, as in the galleries by model
     var byPainting = $('panel-painting'), byModel = $('panel-model');
     if (!byPainting || !byModel) return;
     D.paintings.forEach(function (p) { byPainting.append(paintingGallery(p)); });
@@ -687,7 +683,7 @@
       fitStage();
       return;
     }
-    markSeen([LB.p]); // the enlarged view names the maker
+    if (!(D.apart || []).some(function (m) { return m.id === LB.m; })) markSeen([LB.p]); // the enlarged view names the maker; an entry kept apart is in no ranking set
     var model = models.get(LB.m);
     var height = (a && a.h) || heightAt(LB.p, LB.w);
     var facts = [LB.w + ' × ' + (height || '?') + ' cells'];
