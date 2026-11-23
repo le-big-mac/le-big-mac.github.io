@@ -84,6 +84,7 @@ section[id] { scroll-margin-top: 3rem; } /* the section's rule lands on the bar'
 .gal, .gal > summary, .game, .game-result, .larger-row { scroll-margin-top: 3.75rem; }
 html:has(.lb[open]) { overflow: hidden; } /* the page does not move behind the enlarged view */
 .intro { color: var(--muted); font-size: 1.05rem; }
+.intro + .intro { margin-top: -0.6rem; } /* one line an entry, in the section of entries kept apart: read as one opening */
 .quiet { color: var(--muted); }
 
 .sr-only {
@@ -180,7 +181,7 @@ figcaption .chips { margin: 0.6rem 0 0; display: flex; }
   margin: 1rem 0 0; padding: 0.9rem 1.1rem; background: var(--sunk); border-radius: 10px; border: 1px solid var(--line);
   overflow-x: auto; white-space: pre; line-height: 1.5; font-size: 0.84rem; tab-size: 2;
 }
-.code.task { white-space: pre-wrap; }
+.code.task, .code.reply { white-space: pre-wrap; } /* a judge's answer of eleven letters is wider than a small phone */
 .code .k { color: var(--accent); font-weight: 600; }
 .code.reply { color: var(--muted); }
 .code.bib { max-width: 46rem; margin: 0 0 0.75rem; white-space: pre; overflow-x: auto; user-select: all; }
